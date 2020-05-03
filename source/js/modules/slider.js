@@ -1,12 +1,32 @@
 import Swiper from "swiper";
 
+const clearActiveElement = (storySlider) => () => {
+  if (storySlider && storySlider.slides) {
+    Object.keys(storySlider.slides).forEach((key) => {
+      const elem = storySlider.slides[key];
+      if (elem && elem.classList) {
+        elem.classList.remove(`slider__item--active`);
+      }
+    });
+  }
+}
+
 export default () => {
   let storySlider;
   let sliderContainer = document.getElementById(`story`);
   sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
 
   const setSlider = function () {
+    let textFadeIn;
+
     if (((window.innerWidth / window.innerHeight) < 1) || window.innerWidth < 769) {
+      textFadeIn = (storySlider) => () => {
+        clearActiveElement(storySlider)();
+        const currentElem = storySlider.slides[storySlider.activeIndex];
+        if (currentElem) {
+          currentElem.classList.add(`slider__item--active`);
+        }
+      }
       storySlider = new Swiper(`.js-slider`, {
         pagination: {
           el: `.swiper-pagination`,
@@ -26,6 +46,8 @@ export default () => {
             } else if (storySlider.activeIndex === 6 || storySlider.activeIndex === 7) {
               sliderContainer.style.backgroundImage = `url("img/slide4.jpg"), linear-gradient(180deg, rgba(45, 39, 63, 0) 0%, #2F2A42 16.85%)`;
             }
+
+            textFadeIn(storySlider)();
           },
           resize: () => {
             storySlider.update();
@@ -35,6 +57,18 @@ export default () => {
         observeParents: true
       });
     } else {
+      textFadeIn = (storySlider) => () => {
+        clearActiveElement(storySlider)();
+        const currentElem = storySlider.slides[storySlider.activeIndex];
+        const nextElem = storySlider.slides[storySlider.activeIndex + 1];
+        if (currentElem) {
+          currentElem.classList.add(`slider__item--active`);
+        }
+        if (nextElem) {
+          nextElem.classList.add(`slider__item--active`);
+        }
+      }
+
       storySlider = new Swiper(`.js-slider`, {
         slidesPerView: 2,
         slidesPerGroup: 2,
@@ -60,15 +94,22 @@ export default () => {
             } else if (storySlider.activeIndex === 6) {
               sliderContainer.style.backgroundImage = `url("img/slide4.jpg")`;
             }
+
+            textFadeIn(storySlider)();
           },
           resize: () => {
             storySlider.update();
           }
         },
         observer: true,
-        observeParents: true
+        observeParents: true,
+        allowTouchMove: false,
       });
     }
+
+    setTimeout(() => {
+      textFadeIn(storySlider)();
+    }, 0);
   };
 
   window.addEventListener(`resize`, function () {
@@ -78,5 +119,12 @@ export default () => {
     setSlider();
   });
 
-  setSlider();
+  document.body.addEventListener(`screenChanged`, e => {
+    if (e && e.detail && e.detail.screenName === `story`) {
+      if (storySlider) {
+        storySlider.destroy();
+      }
+      setSlider();
+    }
+  });
 };
