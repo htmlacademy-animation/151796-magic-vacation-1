@@ -1,4 +1,12 @@
+@keyframes intro-fade-in {
+  to {
+    opacity: 1;
+    bottom: 0;
+  }
+}
+
 .intro {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,11 +60,17 @@
   }
 }
 
+.intro__content-wrap {
+  position: relative;
+  width: 100%;
+}
+
 .intro__content {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   padding-left: 6.3rem;
+  width: 100%;
 
   @media (min-width: $stop-scaling) {
     padding-left: 63px;
@@ -66,6 +80,14 @@
     justify-content: flex-start;
     padding-left: 2.5rem;
   }
+}
+
+.intro__content--animating {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  opacity: 0;
+  animation: intro-fade-in 0.5s ease;
 }
 
 .intro__info {
