@@ -5,6 +5,13 @@
   }
 }
 
+@keyframes text-fade-in-mobile {
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
 .slider {
   position: relative;
   flex-grow: 1;
@@ -99,6 +106,14 @@
 .slider__item-text-wrap {
   position: relative;
   width: 100%;
+
+  @media (orientation: portrait) {
+    height: 100%;
+  }
+
+  @media (max-width: $mobile) and (orientation: landscape) {
+    height: 100%;
+  }
 }
 
 .slider__item-text {
@@ -121,9 +136,11 @@
   }
 
   @media (orientation: portrait) {
+    top: unset;
+    bottom: -30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: auto;
     min-height: 11.6rem;
     font-size: 1.4rem;
@@ -131,9 +148,11 @@
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
+    top: unset;
+    bottom: -30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: auto;
     min-height: 14rem;
     font-size: 1.4rem;
@@ -144,6 +163,14 @@
 .slider__item--active {
   .slider__item-text {
     animation: text-fade-in 0.5s ease forwards;
+
+    @media (orientation: portrait) {
+      animation: text-fade-in-mobile 0.5s ease forwards;
+    }
+
+    @media (max-width: $mobile) and (orientation: landscape) {
+      animation: text-fade-in-mobile 0.5s ease forwards;
+    }
   }
 }
 
