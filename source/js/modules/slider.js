@@ -1,15 +1,15 @@
 import Swiper from "swiper";
 
-const clearActiveElement = (storySlider) => () => {
-  if (storySlider && storySlider.slides) {
-    Object.keys(storySlider.slides).forEach((key) => {
-      const elem = storySlider.slides[key];
+const clearActiveElement = (slider) => () => {
+  if (slider && slider.slides) {
+    Object.keys(slider.slides).forEach((key) => {
+      const elem = slider.slides[key];
       if (elem && elem.classList) {
         elem.classList.remove(`slider__item--active`);
       }
     });
   }
-}
+};
 
 export default () => {
   let storySlider;
@@ -20,13 +20,13 @@ export default () => {
     let textFadeIn;
 
     if (((window.innerWidth / window.innerHeight) < 1) || window.innerWidth < 769) {
-      textFadeIn = (storySlider) => () => {
-        clearActiveElement(storySlider)();
-        const currentElem = storySlider.slides[storySlider.activeIndex];
+      textFadeIn = (slider) => () => {
+        clearActiveElement(slider)();
+        const currentElem = slider.slides[slider.activeIndex];
         if (currentElem) {
           currentElem.classList.add(`slider__item--active`);
         }
-      }
+      };
       storySlider = new Swiper(`.js-slider`, {
         pagination: {
           el: `.swiper-pagination`,
@@ -57,17 +57,17 @@ export default () => {
         observeParents: true
       });
     } else {
-      textFadeIn = (storySlider) => () => {
-        clearActiveElement(storySlider)();
-        const currentElem = storySlider.slides[storySlider.activeIndex];
-        const nextElem = storySlider.slides[storySlider.activeIndex + 1];
+      textFadeIn = (slider) => () => {
+        clearActiveElement(slider)();
+        const currentElem = slider.slides[slider.activeIndex];
+        const nextElem = slider.slides[slider.activeIndex + 1];
         if (currentElem) {
           currentElem.classList.add(`slider__item--active`);
         }
         if (nextElem) {
           nextElem.classList.add(`slider__item--active`);
         }
-      }
+      };
 
       storySlider = new Swiper(`.js-slider`, {
         slidesPerView: 2,
@@ -119,7 +119,7 @@ export default () => {
     setSlider();
   });
 
-  document.body.addEventListener(`screenChanged`, e => {
+  document.body.addEventListener(`screenChanged`, (e) => {
     if (e && e.detail && e.detail.screenName === `story`) {
       if (storySlider) {
         storySlider.destroy();
