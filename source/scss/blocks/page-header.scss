@@ -1,3 +1,5 @@
+@import "../general/mixins";
+
 .page-header {
   position: fixed;
   top: 0;
@@ -20,10 +22,22 @@
 }
 
 .page-header__wrapper {
-  @include container;
+  @include on-load-fade-in-transition;
+
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.page-loaded {
+  .page-header__wrapper {
+    @include container;
+    opacity: 1;
+  }
 }
 
 .page-header__logo {
