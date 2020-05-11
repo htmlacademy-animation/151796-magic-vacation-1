@@ -58,3 +58,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@mixin on-load-fade-in-transition {
+  opacity: 0;
+  transition: all cubic-bezier(.72,.76,0,.99) 0.5s;
+}

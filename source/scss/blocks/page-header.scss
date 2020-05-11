@@ -1,3 +1,5 @@
+@import "../general/mixins";
+
 .page-header {
   position: fixed;
   top: 0;
@@ -20,10 +22,22 @@
 }
 
 .page-header__wrapper {
-  @include container;
+  @include on-load-fade-in-transition;
+
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.page-loaded {
+  .page-header__wrapper {
+    @include container;
+    opacity: 1;
+  }
 }
 
 .page-header__logo {
@@ -246,11 +260,11 @@
       content: "";
       position: absolute;
       bottom: 0;
-      width: 100%;
+      width: 0;
       height: 2px;
       background-color: $c-light;
-      display: none;
       left: 0;
+      transition: width 0.2s ease;
 
       @media (max-width: $tablet) and (orientation: portrait) {
         left: 0;
@@ -265,9 +279,10 @@
       }
     }
 
-    &.active {
+    &.active,
+    &:hover {
       &::after {
-        display: block;
+        width: 100%;
       }
     }
 
