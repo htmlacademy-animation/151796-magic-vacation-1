@@ -20,11 +20,6 @@ export default class FullPageScroll {
     window.addEventListener(`popstate`, this.onUrlHashChengedHandler);
 
     this.onUrlHashChanged();
-
-    if (this.screenElements[this.activeScreen].id === `story`) {
-
-    }
-
     this.changePageDisplay();
   }
 
@@ -56,7 +51,9 @@ export default class FullPageScroll {
     });
 
     this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
-    this.screenElements[this.activeScreen].classList.add(`active`);
+    this.screenElements[this.activeScreen].classList.add(`screen--active`);
+
+    this.emitChangeDisplayEvent(`screenVisuallyChanged`);
   }
 
   changeVisibilityDisplay() {
@@ -102,8 +99,8 @@ export default class FullPageScroll {
     }
   }
 
-  emitChangeDisplayEvent() {
-    const event = new CustomEvent(`screenChanged`, {
+  emitChangeDisplayEvent(name = `screenChanged`) {
+    const event = new CustomEvent(name, {
       detail: {
         'screenId': this.activeScreen,
         'screenName': this.screenElements[this.activeScreen].id,
