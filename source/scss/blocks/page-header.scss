@@ -249,7 +249,7 @@
       width: 0;
       height: 2px;
       background-color: $c-light;
-      left: 0;
+      right: 0;
       transition: width 0.2s ease;
 
       @media (min-width: $stop-scaling) {
@@ -258,14 +258,10 @@
       }
 
       @media (max-width: $tablet) and (orientation: portrait) {
-        left: 0;
-        right: 0;
         background-color: $c-dark;
       }
 
       @media (max-width: $mobile) and (orientation: landscape) {
-        left: 0;
-        right: 0;
         background-color: $c-dark;
       }
     }
@@ -273,6 +269,7 @@
     &.active,
     &:hover {
       &::after {
+        left: 0;
         width: 100%;
       }
     }
