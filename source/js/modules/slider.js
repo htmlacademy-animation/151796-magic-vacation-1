@@ -119,7 +119,7 @@ export default () => {
     setSlider();
   });
 
-  document.body.addEventListener(`screenChanged`, (e) => {
+  document.body.addEventListener(`screenVisuallyChanged`, (e) => {
     if (e && e.detail && e.detail.screenName === `story`) {
       if (storySlider) {
         storySlider.destroy();

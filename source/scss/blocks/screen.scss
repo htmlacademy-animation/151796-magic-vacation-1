@@ -1,5 +1,24 @@
 @import "../general/mixins";
 
+.screen__overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 0;
+  background-color: $c-dark;
+  transition: height 1s ease;
+  z-index: 10;
+}
+
+.screen__overlay--active {
+  height: 100vh;
+}
+
+.screen__overlay--hidden {
+  display: none;
+}
+
 .screen {
   position: relative;
   display: flex;
@@ -18,6 +37,25 @@
 
   @media (max-width: $tablet - 1) and (orientation: landscape) {
     height: 100vh;
+  }
+}
+
+.screen--intro {
+  background-image: url("../img/scene.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+
+  @include retina {
+    background-image: url("../img/scene@2x.png");
+  }
+
+  @media (orientation: portrait) {
+    background-image: url("../img/scene-mob.png");
+
+    @include retina {
+      background-image: url("../img/scene-mob@2x.png");
+    }
   }
 }
 
