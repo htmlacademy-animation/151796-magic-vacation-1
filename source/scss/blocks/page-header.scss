@@ -266,11 +266,6 @@
       right: 0;
       transition: width 0.2s ease;
 
-      @media (min-width: $stop-scaling) {
-        left: -5px;
-        right: -5px;
-      }
-
       @media (max-width: $tablet) and (orientation: portrait) {
         background-color: $c-dark;
       }
