@@ -1,3 +1,35 @@
+@keyframes right-fade-in {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-in {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes right-bounce-in {
+  10% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+    width: 100%;
+    right: 50%;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
 .rules {
   position: relative;
   flex-grow: 1;
@@ -159,6 +191,8 @@
     border-radius: 50%;
     line-height: 5rem;
     text-align: center;
+    transform: scale(0);
+    opacity: 0;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       top: 1rem;
@@ -179,6 +213,8 @@
 
   p {
     margin: 0;
+    opacity: 0;
+    transform: translateX(20px);
 
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);
@@ -209,5 +245,58 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     bottom: 2rem;
     right: 1.5rem;
+  }
+
+  &::before {
+    right: 0;
+    transform: translate(50%, -50%);
+    width: 30%;
+    opacity: 0;
+    left: unset;
+  }
+
+  span {
+    opacity: 0;
+  }
+}
+
+$rule-item-delay-difference: 250ms;
+$rule-items: 4;
+$rule-link-bounce-in-delay: $rule-item-delay-difference * $rule-items + 400ms;
+$rule-link-bounce-in-duration: 400ms;
+
+.screen--active {
+  .rules__item {
+    &::before {
+      animation: bounce-in 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+    }
+
+    p {
+      animation: right-fade-in 0.4s ease forwards;
+    }
+
+    @for $i from 1 through $rule-items {
+      &:nth-child(#{$i}) {
+        &::before {
+          animation-delay: ($i * $rule-item-delay-difference);
+        }
+
+        p {
+          animation-delay: ($i * $rule-item-delay-difference) + 400ms;
+        }
+      }
+    }
+  }
+
+  .rules__link {
+    &::before {
+      animation: right-bounce-in $rule-link-bounce-in-duration cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+      animation-delay: $rule-link-bounce-in-delay;
+    }
+
+    span {
+      animation: fade-in 0.3s ease forwards;
+      animation-delay: $rule-link-bounce-in-delay + $rule-link-bounce-in-duration;
+    }
   }
 }
