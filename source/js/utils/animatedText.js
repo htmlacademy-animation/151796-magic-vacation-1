@@ -43,7 +43,7 @@ ${html}
  * @param {string} [property=transform]
  * @param {number} [offset=20]
  * @param {number} [duration=500]
- * @return {null | function}
+ * @return {null | { start: function, destroy: function }}
  */
 const animatedText = ({
   selector,
@@ -63,9 +63,16 @@ const animatedText = ({
     duration,
   });
 
-  return () => {
-    if (elem) {
-      elem.classList.add(`animated-text--active`);
+  return {
+    start: () => {
+      if (elem) {
+        elem.classList.add(`animated-text--active`);
+      }
+    },
+    destroy: () => {
+      if (elem) {
+        elem.classList.remove(`animated-text--active`);
+      }
     }
   };
 };
