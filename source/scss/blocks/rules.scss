@@ -260,6 +260,19 @@
   }
 }
 
+.some-class {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+}
+
+.screen--active { /* У меня такой класс вместо .active */
+  .some-class {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 $rule-item-delay-difference: 250ms;
 $rule-items: 4;
 $rule-link-bounce-in-delay: $rule-item-delay-difference * $rule-items + 400ms;
