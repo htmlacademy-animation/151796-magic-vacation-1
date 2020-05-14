@@ -1,12 +1,19 @@
-import animatedText from '../utils/animatedText';
+import animateText from '../utils/animatedText';
 
 export default () => {
-  const startAnimation = animatedText({
+  const titleStartAnimation = animateText({
     selector: `.intro__title`,
   });
-  if (startAnimation) {
+  const dateStartAnimation = animateText({
+    selector: `.intro__date`,
+    offset: 40,
+  });
+  if (titleStartAnimation && dateStartAnimation) {
     setTimeout(() => {
-      startAnimation();
-    }, 1000);
+      titleStartAnimation();
+    }, 500);
+    setTimeout(() => {
+      dateStartAnimation();
+    }, 1500);
   }
 };

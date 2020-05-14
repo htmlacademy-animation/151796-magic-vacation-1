@@ -17,12 +17,21 @@ const getWrappedContent = ({
   return text.trim().split(` `).filter((word) => word).reduce((html, word) => `
 ${html}
 <span class="animated-word">
-  ${word.split(``).reduce((wordHtml, letter) => {
+  ${word.split(``).reduce((wordHtml, letter, index) => {
     timeOffset += offset;
+    index++;
+    let currentOffset;
+    if (index % 3 === 1) {
+      currentOffset = timeOffset;
+    } else if (index % 3 === 2) {
+      currentOffset = timeOffset + offset;
+    } else {
+      currentOffset = timeOffset - offset;
+    }
 
     return `
       ${wordHtml}
-      <span class="animated-letter" style="transition: ${property} ${duration}ms ease ${timeOffset}ms">${letter}</span>
+      <span class="animated-letter" style="transition: ${property} ${duration}ms ease ${currentOffset}ms">${letter}</span>
     `;
   }, ``)}
 </span>
@@ -39,7 +48,7 @@ ${html}
 const animatedText = ({
   selector,
   property = `transform`,
-  offset = 20,
+  offset = 60,
   duration = 500,
 }) => {
   const elem = document.querySelector(selector);
