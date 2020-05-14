@@ -5,6 +5,11 @@
     .social-block__list {
       opacity: 1;
       pointer-events: auto;
+
+      li {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }
@@ -66,6 +71,11 @@
     & + .social-block__list {
       opacity: 1;
       pointer-events: auto;
+
+      li {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 
@@ -90,7 +100,6 @@
   margin-top: 1.5rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
 
   @media (min-width: $stop-scaling) {
     margin-top: 15px;
@@ -147,6 +156,15 @@
   li {
     flex: none;
     margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        transition-delay: $i * 100ms;
+      }
+    }
 
     @media (min-width: $stop-scaling) {
       margin-bottom: 5px;
