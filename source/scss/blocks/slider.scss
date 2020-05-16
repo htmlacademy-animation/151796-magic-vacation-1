@@ -12,6 +12,13 @@
   }
 }
 
+@keyframes roll-in {
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+}
+
 .slider {
   position: relative;
   flex-grow: 1;
@@ -205,6 +212,7 @@
   width: 4rem;
   height: 4rem;
   color: $c-dark;
+  opacity: 0;
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -271,6 +279,14 @@
   }
 }
 
+.slider__control--prev {
+  transform: translateX(-60px) rotate(-45deg);
+}
+
+.slider__control--next {
+  transform: translateX(60px) rotate(45deg);
+}
+
 .slider__pagination.swiper-pagination {
   position: absolute;
   bottom: 2.8rem;
@@ -324,5 +340,11 @@
       height: 0.4rem;
       background-color: $c-light;
     }
+  }
+}
+
+.screen--active {
+  .slider__control {
+    animation: roll-in 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
   }
 }
