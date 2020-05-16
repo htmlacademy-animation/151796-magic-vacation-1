@@ -57,6 +57,8 @@ export default class FullPageScroll {
   }
 
   changeVisibilityDisplay() {
+    this.screenElements[this.prevScreen].classList.remove(`screen--fully-displayed`);
+
     const activeScreenName = this.screenElements[this.activeScreen].id;
     const prevScreenName = this.screenElements[this.prevScreen].id;
 
@@ -75,6 +77,10 @@ export default class FullPageScroll {
         this.overlay.classList.remove(`screen__overlay--active`);
       }
 
+      if (activeScreenName === prevScreenName) {
+        this.screenElements[this.activeScreen].classList.add(`screen--fully-displayed`);
+      }
+
       if (!fromStory) {
         this.activateScreen();
       }
@@ -87,6 +93,10 @@ export default class FullPageScroll {
 
       if (fromStory) {
         this.activateScreen();
+      }
+
+      if (fromStory || toStory) {
+        this.screenElements[this.activeScreen].classList.add(`screen--fully-displayed`);
       }
     }, this.OVERLAY_DURATION);
   }

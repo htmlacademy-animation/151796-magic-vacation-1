@@ -168,20 +168,6 @@
   }
 }
 
-.slider__item--active {
-  .slider__item-text {
-    animation: text-fade-in 0.5s ease forwards;
-
-    @media (orientation: portrait) {
-      animation: text-fade-in-mobile 0.5s ease forwards;
-    }
-
-    @media (max-width: $mobile) and (orientation: landscape) {
-      animation: text-fade-in-mobile 0.5s ease forwards;
-    }
-  }
-}
-
 .slider__controls {
   position: absolute;
   bottom: 2.8rem;
@@ -274,7 +260,6 @@
   }
 
   &.swiper-button-disabled {
-    opacity: 0.5;
     pointer-events: none;
   }
 }
@@ -343,8 +328,22 @@
   }
 }
 
-.screen--active {
+.screen--fully-displayed {
   .slider__control {
     animation: roll-in 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+  }
+
+  .slider__item--active {
+    .slider__item-text {
+      animation: text-fade-in 0.5s ease forwards;
+
+      @media (orientation: portrait) {
+        animation: text-fade-in-mobile 0.5s ease forwards;
+      }
+
+      @media (max-width: $mobile) and (orientation: landscape) {
+        animation: text-fade-in-mobile 0.5s ease forwards;
+      }
+    }
   }
 }
