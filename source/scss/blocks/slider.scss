@@ -1,4 +1,12 @@
+$prev-control-default-transform: translateX(-5rem) rotate(-45deg);
+$next-control-default-transform: translateX(5rem) rotate(45deg);
+
 @keyframes text-fade-in {
+  from {
+    top: 30px;
+    opacity: 0;
+  }
+
   to {
     top: 0;
     opacity: 1;
@@ -6,13 +14,35 @@
 }
 
 @keyframes text-fade-in-mobile {
+  from {
+    bottom: -30px;
+    opacity: 0;
+  }
+
   to {
     bottom: 0;
     opacity: 1;
   }
 }
 
-@keyframes roll-in {
+@keyframes right-roll-in {
+  from {
+    opacity: 0;
+    transform: $prev-control-default-transform;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+}
+
+@keyframes left-roll-in {
+  from {
+    opacity: 0;
+    transform: $next-control-default-transform;
+  }
+
   to {
     opacity: 1;
     transform: translateX(0) rotate(0);
@@ -265,11 +295,11 @@
 }
 
 .slider__control--prev {
-  transform: translateX(-60px) rotate(-45deg);
+  transform: $prev-control-default-transform;
 }
 
 .slider__control--next {
-  transform: translateX(60px) rotate(45deg);
+  transform: $next-control-default-transform;
 }
 
 .slider__pagination.swiper-pagination {
@@ -329,20 +359,33 @@
 }
 
 .screen--fully-displayed {
+  .slider__control--prev {
+    animation-name: right-roll-in;
+  }
+
+  .slider__control--next {
+    animation-name: left-roll-in;
+  }
+
   .slider__control {
-    animation: roll-in 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    animation-fill-mode: forwards;
   }
 
   .slider__item--active {
     .slider__item-text {
-      animation: text-fade-in 0.5s ease forwards;
+      animation-name: text-fade-in;
+      animation-duration: 0.5s;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
 
       @media (orientation: portrait) {
-        animation: text-fade-in-mobile 0.5s ease forwards;
+        animation-name: text-fade-in-mobile;
       }
 
       @media (max-width: $mobile) and (orientation: landscape) {
-        animation: text-fade-in-mobile 0.5s ease forwards;
+        animation-name: text-fade-in-mobile;
       }
     }
   }
