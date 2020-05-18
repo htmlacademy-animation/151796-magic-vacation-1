@@ -1,4 +1,12 @@
+$prev-control-default-transform: translateX(-5rem) rotate(-45deg);
+$next-control-default-transform: translateX(5rem) rotate(45deg);
+
 @keyframes text-fade-in {
+  from {
+    top: 30px;
+    opacity: 0;
+  }
+
   to {
     top: 0;
     opacity: 1;
@@ -6,9 +14,38 @@
 }
 
 @keyframes text-fade-in-mobile {
+  from {
+    bottom: -30px;
+    opacity: 0;
+  }
+
   to {
     bottom: 0;
     opacity: 1;
+  }
+}
+
+@keyframes right-roll-in {
+  from {
+    opacity: 0;
+    transform: $prev-control-default-transform;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+}
+
+@keyframes left-roll-in {
+  from {
+    opacity: 0;
+    transform: $next-control-default-transform;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
   }
 }
 
@@ -161,20 +198,6 @@
   }
 }
 
-.slider__item--active {
-  .slider__item-text {
-    animation: text-fade-in 0.5s ease forwards;
-
-    @media (orientation: portrait) {
-      animation: text-fade-in-mobile 0.5s ease forwards;
-    }
-
-    @media (max-width: $mobile) and (orientation: landscape) {
-      animation: text-fade-in-mobile 0.5s ease forwards;
-    }
-  }
-}
-
 .slider__controls {
   position: absolute;
   bottom: 2.8rem;
@@ -205,6 +228,7 @@
   width: 4rem;
   height: 4rem;
   color: $c-dark;
+  opacity: 0;
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -266,9 +290,16 @@
   }
 
   &.swiper-button-disabled {
-    opacity: 0.5;
     pointer-events: none;
   }
+}
+
+.slider__control--prev {
+  transform: $prev-control-default-transform;
+}
+
+.slider__control--next {
+  transform: $next-control-default-transform;
 }
 
 .slider__pagination.swiper-pagination {
@@ -323,6 +354,39 @@
       width: 0.4rem;
       height: 0.4rem;
       background-color: $c-light;
+    }
+  }
+}
+
+.screen--fully-displayed {
+  .slider__control--prev {
+    animation-name: right-roll-in;
+  }
+
+  .slider__control--next {
+    animation-name: left-roll-in;
+  }
+
+  .slider__control {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    animation-fill-mode: forwards;
+  }
+
+  .slider__item--active {
+    .slider__item-text {
+      animation-name: text-fade-in;
+      animation-duration: 0.5s;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+
+      @media (orientation: portrait) {
+        animation-name: text-fade-in-mobile;
+      }
+
+      @media (max-width: $mobile) and (orientation: landscape) {
+        animation-name: text-fade-in-mobile;
+      }
     }
   }
 }

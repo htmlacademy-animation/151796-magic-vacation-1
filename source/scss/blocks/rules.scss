@@ -1,4 +1,9 @@
 @keyframes right-fade-in {
+  from {
+    transform: translateX(3rem);
+    opacity: 0;
+  }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -6,6 +11,11 @@
 }
 
 @keyframes bounce-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -13,6 +23,12 @@
 }
 
 @keyframes right-bounce-in {
+  from {
+    opacity: 0;
+    width: 30%;
+    right: 0;
+  }
+
   10% {
     opacity: 1;
   }
@@ -25,6 +41,10 @@
 }
 
 @keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
   to {
     opacity: 1;
   }
@@ -214,7 +234,7 @@
   p {
     margin: 0;
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(3rem);
 
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);

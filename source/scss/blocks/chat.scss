@@ -1,4 +1,9 @@
 @keyframes chat-from-fade-in {
+  from {
+    right: -10rem;
+    opacity: 0;
+  }
+
   to {
     right: 0;
     opacity: 1;
@@ -198,7 +203,7 @@
   .form {
     position: absolute;
     bottom: 0;
-    right: -100px;
+    right: -10rem;
     opacity: 0;
     width: 100%;
     animation: chat-from-fade-in 0.5s ease forwards;
