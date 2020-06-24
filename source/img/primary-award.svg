@@ -2,8 +2,8 @@
   <g id="airship-flying">
     <animate attributeName="opacity" begin="2.5s" from="1" to="0" dur="0.5s" fill="freeze" calcMode="linear"/>
     <g id="airship">
-      <g id="tail-back">
-        <g id="tail-back-top">
+      <g id="tailBack">
+        <g id="tailBackTop">
           <animateTransform
             attributeName="transform"
             type="translate"
@@ -17,7 +17,7 @@
           <path d="M123.23,173.34h9.16a3.29,3.29,0,0,1,3.29,3.3v5.71a3.29,3.29,0,0,1-3.29,3.3H115.57a1.32,1.32,0,0,1-1.32-1.32v-2a9,9,0,0,1,9-9" fill="#068e4d"/>
           <path d="M123.23,173.34h9.16a3.29,3.29,0,0,1,3.29,3.3v5.71a3.29,3.29,0,0,1-3.29,3.3H115.57a1.32,1.32,0,0,1-1.32-1.32v-2A9,9,0,0,1,123.23,173.34Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
-        <g id="tail-back-bottom">
+        <g id="tailBackBottom">
           <animateTransform
             attributeName="transform"
             type="translate"
@@ -69,7 +69,7 @@
         <path d="M175.44,249.28h48.36a13.27,13.27,0,0,0,13-10.65l3.74-18.32H172.36v25.89A3.09,3.09,0,0,0,175.44,249.28Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         <path d="M235.79,241.69h-9.22a8.31,8.31,0,0,1-8.28-8.31V220.31" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
 
-        <g id="middle-window">
+        <g id="middleWindow">
           <path d="M204.25,231.88h-2.05a3.45,3.45,0,0,0-3.43,3.45v2.92a3.45,3.45,0,0,0,3.43,3.45h2.05a3.45,3.45,0,0,0,3.43-3.45v-2.92A3.44,3.44,0,0,0,204.25,231.88Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
             <set attributeName="opacity" to="0" begin="2.5s"/>
           </path>
@@ -79,7 +79,7 @@
       </g>
 
       <g id="balloon">
-        <g id="balloon-color">
+        <g id="balloonColor">
           <path d="M205,227.08c43.38,0,74.86-15.55,74.86-37s-31.48-37-74.86-37c-27.94,0-55.36,13.53-73.46,24.87a14.3,14.3,0,0,0,0,24.21c18.09,11.33,45.52,24.87,73.46,24.87" fill="#068e4d">
             <animate
               attributeName="fill"
@@ -94,7 +94,7 @@
         <path d="M205,227.08c43.38,0,74.86-15.55,74.86-37s-31.48-37-74.86-37c-27.94,0-55.36,13.53-73.46,24.87a14.3,14.3,0,0,0,0,24.21C149.63,213.54,177.06,227.08,205,227.08Z" fill="none" stroke="#fff" stroke-width="2"/>
         <path d="M205,176.09c-28.23,0-56.07,5.76-72.81,10-3.95,1-6,2.66-6.08,4.34A12.93,12.93,0,0,1,132.18,179c16.74-10.5,44.58-24.68,72.81-24.68,44.81,0,73.64,16,73.64,35.75,0,0.12,0,.24,0,0.37-0.37-7.95-29.1-14.37-73.63-14.37" fill="#36e69a"/>
         <path d="M132.18,195.12c16.74,4.27,44.58,10,72.81,10,44.14,0,72.75-6.32,73.6-14.18-0.86,19.34-29.45,34.86-73.6,34.86-28.23,0-56.07-14.19-72.81-24.68a12.88,12.88,0,0,1-6-10.18c0.26,1.61,2.26,3.18,6,4.14" fill="#068e4d"/>
-        <g id="balloon-middle-part">
+        <g id="balloonMiddlePart">
           <animateTransform
             attributeName="transform"
             type="translate"
@@ -109,8 +109,8 @@
         </g>
       </g>
 
-      <g id="tail-front">
-        <g id="tail-front-top">
+      <g id="tailFront">
+        <g id="tailFrontTop">
           <animateTransform
             attributeName="transform"
             type="translate"
@@ -124,7 +124,7 @@
           <path d="M123.23,173.34h9.16a3.29,3.29,0,0,1,3.29,3.3v5.71a3.29,3.29,0,0,1-3.29,3.3H115.57a1.32,1.32,0,0,1-1.32-1.32v-2a9,9,0,0,1,9-9" fill="#068e4d"/>
           <path d="M123.23,173.34h9.16a3.29,3.29,0,0,1,3.29,3.3v5.71a3.29,3.29,0,0,1-3.29,3.3H115.57a1.32,1.32,0,0,1-1.32-1.32v-2A9,9,0,0,1,123.23,173.34Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
-        <g id="tail-front-bottom">
+        <g id="tailFrontBottom">
           <animateTransform
             attributeName="transform"
             type="translate"
@@ -141,7 +141,7 @@
       </g>
     </g>
 
-    <g id="cloud-1" opacity="0">
+    <g id="cloud1" opacity="0">
       <animate attributeName="opacity" values="0; 1; 1; 0" keyTimes="0; 0.2; 0.85; 1" dur="1.95s"/>
       <line x1="68.95" y1="107.8" x2="131.86" y2="107.8" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
         <animateTransform
@@ -166,7 +166,7 @@
       </g>
     </g>
 
-    <g id="cloud-2" opacity="0">
+    <g id="cloud2" opacity="0">
       <animate attributeName="opacity" values="0; 1; 1; 0" keyTimes="0; 0.2; 0.85; 1" begin="1s" dur="1.95s"/>
       <line x1="258.96" y1="93.19" x2="298.74" y2="93.19" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
         <animateTransform
@@ -223,7 +223,7 @@
     </g>
   </g>
 
-  <g id="main-window">
+  <g id="mainWindow">
     <path opacity="0" d="M 206.677 240.682 C 207.319 240.036 207.68 239.161 207.68 238.25 C 207.68 237.277 207.68 236.303 207.68 235.33 C 207.682 234.726 207.525 234.132 207.224 233.609 C 206.924 233.085 206.491 232.649 205.969 232.346 C 205.447 232.042 204.854 231.882 204.25 231.88 C 204.25 231.88 204.25 231.88 204.25 231.88 L 202.2 231.88 C 201.289 231.885 200.416 232.251 199.773 232.898 C 199.131 233.544 198.77 234.419 198.77 235.33 L 198.77 238.25 C 198.77 239.161 199.131 240.036 199.773 240.682 C 200.416 241.329 201.289 241.695 202.2 241.7 C 202.883 241.7 203.567 241.7 204.25 241.7 C 205.161 241.695 206.034 241.329 206.677 240.682" fill="none" stroke="#fff" stroke-width="2">
       <animate
         attributeName="d"
@@ -249,7 +249,7 @@
     </path>
   </g>
 
-  <g id="inside-view" opacity="0">
+  <g id="insideView" opacity="0">
     <animate attributeName="opacity" begin="2.5s" from="0" to="1" dur="0.5s" fill="freeze" calcMode="linear"/>
     <defs>
       <clipPath id="window">
@@ -259,7 +259,7 @@
 
     <g clip-path="url(#window)">
       <g transform="translate(220 160)">
-        <g id="cloud-3" opacity="0">
+        <g id="cloud3" opacity="0">
           <animate attributeName="opacity" values="0; 1; 1; 0" keyTimes="0; 0.2; 0.85; 1" begin="3s" dur="1.95s"/>
           <path d="M41.77,97.54H77.06a12.4,12.4,0,1,1,24.8,0h17.93" transform="translate(-40.77 -69.46)" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
             <animateTransform
@@ -283,7 +283,7 @@
           </line>
         </g>
 
-        <g id="cloud-4" opacity="0">
+        <g id="cloud4" opacity="0">
           <animate attributeName="opacity" values="0; 1; 1; 0" keyTimes="0; 0.2; 0.85; 1" begin="4s" dur="1.95s"/>
           <line x1="218.19" y1="23.72" x2="257.97" y2="23.72" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
             <animateTransform
