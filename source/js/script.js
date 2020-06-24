@@ -10,6 +10,7 @@ import social from './modules/social.js';
 import app from './modules/app.js';
 import intro from './modules/intro.js';
 import FullPageScroll from './modules/full-page-scroll';
+import prizes from './modules/prizes';
 
 // init modules
 app();
@@ -22,6 +23,7 @@ result();
 form();
 social();
 intro();
+prizes();
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
