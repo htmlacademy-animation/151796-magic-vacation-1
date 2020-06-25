@@ -5,6 +5,10 @@ const prizesData = [
     desktopImagePath: `img/primary-award.svg`,
     elementId: `primary-award-preview`,
   },
+  {
+    desktopImagePath: `img/secondary-award.svg`,
+    elementId: `secondary-award-preview`,
+  },
 ];
 
 const PRIZES_DELAY = 3500;
