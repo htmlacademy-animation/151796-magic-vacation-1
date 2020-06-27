@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 350 330" style="background-color: #000">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 350 330">
   <g id="closedCover" opacity="1">
     <set attributeName="opacity" id="caseOpening" begin="0.5s" to="0"/>
 
@@ -80,7 +80,7 @@
     <animateTransform
       attributeName="transform"
       type="translate"
-      values="0 0; 8 24; -17 -16; 0 14; 8 -6; 0 0"
+      values="0 0; 8 24; -17 -6; 0 14; 8 -2; 0 0"
       additive="sum"
       dur="2s"
       begin="balloonHasAppeared.end"
@@ -127,7 +127,7 @@
     />
     <animate
       attributeName="y1"
-      values="166.71; 190; 150; 180; 160; 166.71"
+      values="166.71; 190; 160; 180; 164; 166.71"
       dur="2s"
       fill="freeze"
       begin="balloonHasAppeared.end"
