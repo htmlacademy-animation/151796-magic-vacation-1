@@ -1,3 +1,13 @@
+@keyframes title-scale-in {
+  from {
+    transform: scale(1.2);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
 .game {
   flex-grow: 1;
   display: flex;
@@ -114,10 +124,18 @@
   left: 0;
   z-index: 100;
   opacity: 0.5;
-  display: none;
 }
 
 .game__button {
   margin: 0 30px 30px;
   display: block;
+}
+
+.game__victory-title {
+  opacity: 0;
+}
+
+.game__victory-title--displayed {
+  animation: title-scale-in 0.6s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+  opacity: 1;
 }

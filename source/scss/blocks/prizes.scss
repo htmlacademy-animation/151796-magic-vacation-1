@@ -411,7 +411,7 @@
     }
 
     &--cases {
-      animation: fade-in 0.3s forwards;
+      animation: fade-in 0.35s forwards;
       animation-delay: 4s;
 
       .prizes__desc {
@@ -441,7 +441,7 @@
     }
 
     span {
-      animation: right-fade-in 0.3s forwards;
+      animation: right-fade-in 0.35s forwards;
     }
   }
 }
