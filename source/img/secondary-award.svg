@@ -79,7 +79,7 @@
     <animateTransform
       attributeName="transform"
       type="translate"
-      values="100 0; 150 -120; -50 -120; -275 -100; 50 -50; 0 0"
+      values="100 0; 150 -120; -50 -120; -200 -100; 50 -50; 0 0"
       keyTimes="0; 0.2; 0.4; 0.6; 0.85; 1"
       dur="1.467s"
       begin="cargoAppearing.begin"
