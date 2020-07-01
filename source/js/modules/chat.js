@@ -1,8 +1,19 @@
+import CountUp from '../utils/CountUp';
+
 export default () => {
   let messageForm = document.getElementById(`message-form`);
   let messageField = document.getElementById(`message-field`);
   let messageList = document.getElementById(`messages`);
   let chatBlock = document.querySelector(`.js-chat`);
+
+  const countUp = new CountUp({
+    from: 300 * 1000,
+    to: 0,
+    interval: 1000,
+    callback: (val) => console.log(val),
+    time: true,
+  });
+  countUp.start();
 
   messageForm.addEventListener(`submit`, function (e) {
     e.preventDefault();
