@@ -30,6 +30,7 @@ export default class CountUp {
     this.animationRequestId = null;
 
     this.start = this.start.bind(this);
+    this.reset = this.reset.bind(this);
     this._provider = this._provider.bind(this);
   }
 
@@ -64,6 +65,11 @@ export default class CountUp {
     }
   }
 
+  reset() {
+    cancelAnimationFrame(this.animationRequestId);
+    this.value = this.from;
+  }
+
   /**
    * @param {number} val
    * @private
@@ -71,12 +77,24 @@ export default class CountUp {
    */
   _provider(val) {
     if (this.transformToTime) {
+      const minutes = this._timeNormalizer((val - (val % (1000 * 60))) / (1000 * 60));
+      const seconds = this._timeNormalizer((val % (1000 * 60)) / 1000);
+
       return {
-        minutes: (val - (val % (1000 * 60))) / (1000 * 60),
-        seconds: (val % (1000 * 60)) / (1000),
+        minutes,
+        seconds,
       };
     }
 
     return val;
+  }
+
+  /**
+   * @param {number} timeEntity
+   * @return {string}
+   * @private
+   */
+  _timeNormalizer(timeEntity) {
+    return timeEntity < 10 ? `0${timeEntity}` : timeEntity.toString();
   }
 }

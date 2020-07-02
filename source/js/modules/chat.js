@@ -5,15 +5,27 @@ export default () => {
   let messageField = document.getElementById(`message-field`);
   let messageList = document.getElementById(`messages`);
   let chatBlock = document.querySelector(`.js-chat`);
+  const timerElement = document.getElementById(`game-counter`);
 
   const countUp = new CountUp({
     from: 300 * 1000,
     to: 0,
     interval: 1000,
-    callback: (val) => console.log(val),
+    callback: ({seconds, minutes}) => {
+      if (timerElement) {
+        timerElement.innerHTML = `<span>${minutes}</span>:<span>${seconds}</span>`;
+      }
+    },
     time: true,
   });
-  countUp.start();
+
+  document.body.addEventListener(`screenVisuallyChanged`, async (e) => {
+    if (e && e.detail && e.detail.screenName === `game`) {
+      countUp.start();
+    } else {
+      countUp.reset();
+    }
+  });
 
   messageForm.addEventListener(`submit`, function (e) {
     e.preventDefault();
