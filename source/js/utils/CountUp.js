@@ -2,21 +2,24 @@ export default class CountUp {
   /**
    * @param {number} from
    * @param {number} to
-   * @param {number} interval
+   * @param {number} fps
+   * @param {number} step
    * @param {function(val: *)} callback
    * @param {boolean} [time=false]
    */
   constructor({
     from,
     to,
-    interval,
+    fps,
+    step,
     callback,
     time,
   }) {
     this.from = from;
     this.to = to;
     this.value = from;
-    this.interval = interval;
+    this.interval = 1000 / fps;
+    this.step = step;
     this.direction = from > to ? `down` : `up`;
 
     const now = Date.now();
@@ -41,7 +44,7 @@ export default class CountUp {
     const elapsed = this.now - this.then;
 
     if (elapsed > this.interval) {
-      this.value = this.direction === `up` ? this.value + this.interval : this.value - this.interval;
+      this.value = this.direction === `up` ? this.value + this.step : this.value - this.step;
       let isRunOver;
       if (this.direction === `up`) {
         if (this.value >= this.to) {

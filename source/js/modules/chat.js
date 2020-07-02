@@ -10,7 +10,8 @@ export default () => {
   const countUp = new CountUp({
     from: 300 * 1000,
     to: 0,
-    interval: 1000,
+    fps: 1,
+    step: 1000,
     callback: ({seconds, minutes}) => {
       if (timerElement) {
         timerElement.innerHTML = `<span>${minutes}</span>:<span>${seconds}</span>`;
