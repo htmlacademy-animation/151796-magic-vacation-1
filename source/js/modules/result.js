@@ -1,3 +1,54 @@
+const animateTitle = (screenId) => {
+  const titleSvg = document.querySelector(`#${screenId} .result__svg-title`);
+  if (titleSvg) {
+    const type = titleSvg.getAttribute(`data-type`);
+    let letterDelay = 0;
+
+    const paths = titleSvg.querySelectorAll(`path`);
+    paths.forEach((path) => {
+      const len = path.getTotalLength();
+      const animateStrokeDashArray = document.createElementNS(`http://www.w3.org/2000/svg`, `animate`);
+
+      path.setAttribute(`stroke-dasharray`, `0 ` + Math.ceil(len / 3));
+      animateStrokeDashArray.setAttribute(`attributeName`, `stroke-dasharray`);
+      animateStrokeDashArray.setAttribute(`from`, `0 ${Math.ceil(len / 3)}`);
+      animateStrokeDashArray.setAttribute(`to`, `${Math.ceil(len / 3)} 0`);
+      animateStrokeDashArray.setAttribute(`fill`, `freeze`);
+      if (type === `defeat`) {
+        animateStrokeDashArray.setAttribute(`begin`, `start + ${letterDelay}ms`);
+        animateStrokeDashArray.setAttribute(`dur`, `0.5s`);
+      } else {
+        animateStrokeDashArray.setAttribute(`begin`, `start`);
+        animateStrokeDashArray.setAttribute(`dur`, `0.6s`);
+      }
+
+      path.appendChild(animateStrokeDashArray);
+
+      if (type === `defeat`) {
+        const animateTransition = document.createElementNS(`http://www.w3.org/2000/svg`, `animateTransform`);
+
+        animateTransition.setAttribute(`attributeName`, `transform`);
+        animateTransition.setAttribute(`type`, `translate`);
+        animateTransition.setAttribute(`values`, `0 -50; 0 60; 0 45; 0 50`);
+        animateTransition.setAttribute(`keyTimes`, `0; 0.85; 0.93; 1`);
+        animateTransition.setAttribute(`calcMode`, `spline`);
+        animateTransition.setAttribute(`keySplines`, `0.11 0 0.92 0.41; 0.25 1 0.5 1; 0.37 0 0.63 1`);
+        animateTransition.setAttribute(`dur`, `0.8s`);
+        animateTransition.setAttribute(`additive`, `sum`);
+        animateTransition.setAttribute(`fill`, `freeze`);
+        animateTransition.setAttribute(`begin`, `start + ${letterDelay}ms`);
+
+        letterDelay += 40;
+
+        path.appendChild(animateTransition);
+      }
+
+      path.dispatchEvent(new Event(`start`));
+    });
+  }
+  titleSvg.classList.add(`result__svg-title--displayed`);
+};
+
 export default () => {
   let showResultEls = document.querySelectorAll(`.js-show-result`);
   let results = document.querySelectorAll(`.screen--result`);
@@ -14,6 +65,7 @@ export default () => {
         });
         targetEl[0].classList.add(`screen--show`);
         targetEl[0].classList.remove(`screen--hidden`);
+        animateTitle(target);
       });
     }
 

@@ -1,8 +1,32 @@
+import CountUp from '../utils/CountUp';
+
 export default () => {
   let messageForm = document.getElementById(`message-form`);
   let messageField = document.getElementById(`message-field`);
   let messageList = document.getElementById(`messages`);
   let chatBlock = document.querySelector(`.js-chat`);
+  const timerElement = document.getElementById(`game-counter`);
+
+  const countUp = new CountUp({
+    from: 300 * 1000,
+    to: 0,
+    fps: 1,
+    step: 1000,
+    callback: ({seconds, minutes}) => {
+      if (timerElement) {
+        timerElement.innerHTML = `<span>${minutes}</span>:<span>${seconds}</span>`;
+      }
+    },
+    time: true,
+  });
+
+  document.body.addEventListener(`screenVisuallyChanged`, async (e) => {
+    if (e && e.detail && e.detail.screenName === `game`) {
+      countUp.start();
+    } else {
+      countUp.reset();
+    }
+  });
 
   messageForm.addEventListener(`submit`, function (e) {
     e.preventDefault();

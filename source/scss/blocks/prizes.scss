@@ -189,7 +189,6 @@
 
       @media (min-width: $stop-scaling) {
         left: -59px;
-        bottom: -14px;
         width: 268px;
       }
 
@@ -228,7 +227,8 @@
       width: 26rem;
 
       @media (min-width: $stop-scaling) {
-        width: 188px;
+        left: -7rem;
+        width: 260px;
       }
 
       @media (max-width: $tablet) and (orientation: portrait) {
@@ -245,6 +245,16 @@
         width: 7rem;
       }
     }
+
+    .prizes__desc {
+      b {
+        width: 6.5rem;
+
+        @media (min-width: $stop-scaling) {
+          width: 4rem;
+        }
+      }
+    }
   }
 
   &--codes {
@@ -259,6 +269,7 @@
 
       @media (min-width: $stop-scaling) {
         width: 260px;
+        left: -2rem;
       }
 
       @media (max-width: $tablet) and (orientation: portrait) {
@@ -272,6 +283,16 @@
 
       @media (max-width: $mobile) and (orientation: landscape) {
         width: 10rem;
+      }
+    }
+
+    .prizes__desc {
+      b {
+        width: 19rem;
+
+        @media (min-width: $stop-scaling) {
+          width: 12rem;
+        }
       }
     }
   }
@@ -411,7 +432,7 @@
     }
 
     &--cases {
-      animation: fade-in 0.3s forwards;
+      animation: fade-in 0.35s forwards;
       animation-delay: 4s;
 
       .prizes__desc {
@@ -441,7 +462,7 @@
     }
 
     span {
-      animation: right-fade-in 0.3s forwards;
+      animation: right-fade-in 0.35s forwards;
     }
   }
 }

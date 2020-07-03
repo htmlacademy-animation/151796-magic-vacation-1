@@ -1,3 +1,13 @@
+@keyframes title-scale-in {
+  from {
+    transform: scale(1.2);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
 .game {
   flex-grow: 1;
   display: flex;
@@ -72,6 +82,7 @@
 
 .game__counter {
   margin: 0;
+  width: 12rem;
   text-transform: uppercase;
   font-family: $font-alt;
   font-weight: 400;
@@ -90,10 +101,12 @@
   @media (max-width: $tablet) and (orientation: portrait) {
     margin-bottom: 1.8rem;
     font-size: 3.6rem;
+    width: 9rem;
   }
 
   @media (max-width: $tablet) and (orientation: landscape) {
     font-size: 3rem;
+    width: 7rem;
     margin-bottom: 2rem;
   }
 
@@ -114,7 +127,6 @@
   left: 0;
   z-index: 100;
   opacity: 0.5;
-  display: none;
 }
 
 .game__button {
