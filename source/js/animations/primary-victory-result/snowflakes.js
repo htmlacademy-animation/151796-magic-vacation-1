@@ -1,4 +1,4 @@
-import {skew} from '../../utils/canvas';
+import {skew} from '../helpers';
 
 const params = [
   {
