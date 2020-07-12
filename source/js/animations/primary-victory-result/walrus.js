@@ -1,5 +1,7 @@
 import {animateEasing, runSerialAnimations, rotate, animateDuration, defaultAnimationTick} from '../helpers';
-import {linear, elasticOut} from '../timeFunctions';
+import {elasticOut} from '../timeFunctions';
+
+const ANIMATION_DURATION = 6 * 1000;
 
 const width = 408;
 const height = 273;
@@ -23,18 +25,18 @@ const rotateAnimationTick = (from, to) => (progress) => {
 };
 
 const rotateAnimations = [
-  () => animateEasing(rotateAnimationTick(30, 30), 200, linear),
-  () => animateEasing(rotateAnimationTick(30, 0), 5800, elasticOut(3)),
+  () => animateDuration(rotateAnimationTick(30, 30), 200),
+  () => animateEasing(rotateAnimationTick(30, 0), ANIMATION_DURATION - 200, elasticOut(3)),
 ];
 
 /**
  * @param {CanvasRenderingContext2D} ctx
+ * @return {Promise<{draw: function, animate: function}>}
  */
-const walrus = (ctx) => {
+const walrus = (ctx) => new Promise((resolve, reject) => {
   const img = new Image();
 
   const draw = () => {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     ctx.save();
     rotate(ctx, angle, translateX, getWalrusCY());
     ctx.translate(left, translateY);
@@ -43,16 +45,19 @@ const walrus = (ctx) => {
   };
 
   const animate = () => {
-    animateEasing(translateAnimationTick(window.innerHeight, top), 6000, elasticOut(5));
+    animateEasing(translateAnimationTick(window.innerHeight, top), ANIMATION_DURATION, elasticOut(5));
     runSerialAnimations(rotateAnimations);
-    animateDuration(draw, 10000);
+    animateDuration(draw, ANIMATION_DURATION);
   };
 
-  img.onload = () => {
-    animate();
-  };
+  img.onload = () => resolve({
+    animate,
+    draw,
+  });
+
+  img.onerror = reject;
 
   img.src = `/img/win-primary-images/walrus.png`;
-};
+});
 
 export default walrus;

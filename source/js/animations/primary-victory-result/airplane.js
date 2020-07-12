@@ -1,109 +1,90 @@
+import {animateDuration, defaultAnimationTick, runSerialAnimations, rotate} from '../helpers';
+
+const ANIMATION_DURATION = 700;
+const DELAY = 300;
+
+const width = 120;
+const height = 116;
+
+let translateY = 0;
+let translateX = 0;
+let angle = 0;
+let opacity = 0;
+
+const getPlaneCenter = () => ({
+  x: translateX + (width / 2),
+  y: translateY + (height / 2),
+});
+
 /**
- * @param {CanvasRenderingContext2D} ctx
+ * @param {{ x: number, y: number }} from
+ * @param {{ x: number, y: number }} to
+ * @return {function(...[*]=)}
  */
-const animateTree2 = (ctx) => {
-  const width = 50;
-  const height = 159;
-  const left = (window.innerWidth / 2) + 70;
-  const top = (window.innerHeight / 2) - 130;
-
-  const img = new Image();
-
-  const draw = () => {
-    ctx.drawImage(img, left, top, width, height);
-  };
-
-  img.onload = () => {
-    ctx.save();
-    draw();
-    ctx.restore();
-  };
-
-  img.src = `/img/win-primary-images/tree-2.png`;
+const translateAnimationTick = (from, to) => (progress) => {
+  translateX = defaultAnimationTick(from.x, to.x, progress);
+  translateY =
+    from.y -
+    (
+      Math.sign(to.y - from.y) *
+      Math.abs(to.y - from.y) *
+      Math.sin((progress * 5 / 4 * Math.PI) - (5 / 4 * Math.PI))
+    );
 };
 
-/**
- * @param {CanvasRenderingContext2D} ctx
- */
-const animateTree1 = (ctx) => {
-  const width = 38;
-  const height = 101;
-  const left = (window.innerWidth / 2) + 110;
-  const top = (window.innerHeight / 2) - 90;
-
-  const img = new Image();
-
-  const draw = () => {
-    ctx.drawImage(img, left, top, width, height);
-  };
-
-  img.onload = () => {
-    ctx.save();
-    draw();
-    ctx.restore();
-  };
-
-  img.src = `/img/win-primary-images/tree.png`;
+const rotateAnimationTick = (from, to) => (progress) => {
+  angle = defaultAnimationTick(from, to, progress);
 };
 
+const opacityAnimationTick = (from, to) => (progress) => {
+  opacity = defaultAnimationTick(from, to, progress);
+};
+
+const rotateAnimations = [
+  () => animateDuration(rotateAnimationTick(90, 90), ANIMATION_DURATION * 0.35),
+  () => animateDuration(rotateAnimationTick(90, 0), ANIMATION_DURATION - (ANIMATION_DURATION * 0.35)),
+];
+
 /**
  * @param {CanvasRenderingContext2D} ctx
+ * @return {Promise<{draw: function, animate: function}>}
  */
-const animatePlane = (ctx) => {
-  const width = 120;
-  const height = 116;
-  const left = (window.innerWidth / 2) + 300;
-  const top = (window.innerHeight / 2) - 200;
-
+const airplane = (ctx) => new Promise((resolve, reject) => {
   const img = new Image();
 
   const draw = () => {
-    ctx.drawImage(img, left, top, width, height);
-  };
-
-  img.onload = () => {
     ctx.save();
-    draw();
+    const planeCenter = getPlaneCenter();
+    rotate(ctx, angle, planeCenter.x, planeCenter.y);
+    ctx.globalAlpha = opacity;
+    ctx.translate(translateX, translateY);
+    ctx.drawImage(img, 0, 0, width, height);
     ctx.restore();
   };
+
+  const animate = () => {
+    setTimeout(() => {
+      animateDuration(translateAnimationTick({
+        x: (window.innerWidth / 2) - 50,
+        y: (window.innerHeight / 2) - 200,
+      }, {
+        x: (window.innerWidth / 2) + 300,
+        y: (window.innerHeight / 2) - 150,
+      },
+      ), ANIMATION_DURATION);
+      animateDuration(opacityAnimationTick(0, 1), ANIMATION_DURATION * 0.3);
+      runSerialAnimations(rotateAnimations);
+    }, DELAY);
+  };
+
+  img.onload = () => resolve({
+    animate,
+    draw,
+  });
+
+  img.onerror = reject;
 
   img.src = `/img/win-primary-images/airplane.png`;
-};
+});
 
-/**
- * @param {CanvasRenderingContext2D} ctx
- */
-const animateTrail = (ctx) => {
-  const width = 586;
-  const height = 324;
-  const left = (window.innerWidth / 2) - 260;
-  const top = (window.innerHeight / 2) - 212;
-
-  const img = new Image();
-
-  const draw = () => {
-    ctx.drawImage(img, left, top, width, height);
-  };
-
-  img.onload = () => {
-    ctx.save();
-    draw();
-    ctx.restore();
-  };
-
-  img.src = `/img/win-primary-images/back.png`;
-};
-
-/**
- * @param {CanvasRenderingContext2D} ctx
- */
-const animateFlying = (ctx) => {
-  animatePlane(ctx);
-  animateTrail(ctx);
-  setTimeout(() => {
-    animateTree1(ctx);
-    animateTree2(ctx);
-  }, 200);
-};
-
-export default animateFlying;
+export default airplane;

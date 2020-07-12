@@ -1,4 +1,4 @@
-import animatePrimaryVictoryResult from '../animations/primary-victory-result';
+import primaryVictoryResult from '../animations/primary-victory-result';
 
 const animateTitle = (screenId) => {
   const titleSvg = document.querySelector(`#${screenId} .result__svg-title`);
@@ -52,12 +52,12 @@ const animateTitle = (screenId) => {
 };
 
 const previewAnimation = {
-  result: animatePrimaryVictoryResult,
+  result: primaryVictoryResult,
 };
 
 const animatePreview = (target) => {
   if (previewAnimation[target]) {
-    previewAnimation[target]();
+    previewAnimation[target](target);
   }
 };
 
