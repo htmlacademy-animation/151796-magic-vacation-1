@@ -30,6 +30,30 @@ export const rotate = (ctx, angle, x, y) => {
 };
 
 /**
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {number} cx
+ * @param {number} cy
+ * @param {number} horRadius
+ * @param {number} verRadius
+ */
+export const drawEllipse = ({ctx, cx, cy, horRadius, verRadius}) => {
+  ctx.beginPath();
+  ctx.translate(cx, cy);
+
+  /*
+   * Масштабируем по х.
+   * Теперь нарисованная окружность вытянется в a / b раз
+   * и станет эллипсом
+   */
+  ctx.scale(horRadius / verRadius, 1);
+
+  // Рисуем окружность, которая благодаря масштабированию станет эллипсом
+  ctx.arc(0, 0, verRadius, 0, Math.PI * 2, true);
+
+  ctx.closePath();
+};
+
+/**
  * @param {function} render
  * @param {number} duration
  * @param {function} easing

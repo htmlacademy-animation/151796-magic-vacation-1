@@ -45,27 +45,3 @@ const animateTree1 = (ctx) => {
 
   img.src = `/img/win-primary-images/tree.png`;
 };
-
-/**
- * @param {CanvasRenderingContext2D} ctx
- */
-const animateTrail = (ctx) => {
-  const width = 586;
-  const height = 324;
-  const left = (window.innerWidth / 2) - 260;
-  const top = (window.innerHeight / 2) - 212;
-
-  const img = new Image();
-
-  const draw = () => {
-    ctx.drawImage(img, left, top, width, height);
-  };
-
-  img.onload = () => {
-    ctx.save();
-    draw();
-    ctx.restore();
-  };
-
-  img.src = `/img/win-primary-images/back.png`;
-};
