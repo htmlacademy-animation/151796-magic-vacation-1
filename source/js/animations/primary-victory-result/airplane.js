@@ -28,6 +28,7 @@ let ellipseCY = 0;
 let ellipseHorR = 0;
 let ellipseVerR = 0;
 let renderPlane = false;
+let animationProgress = 0;
 
 const getPlaneTail = () => ({
   x: translateX + width * 0.14,
@@ -58,6 +59,12 @@ const opacityAnimationTick = (from, to) => (progress) => {
   opacity = defaultAnimationTick(from, to, progress);
 };
 
+const animationTick = (progress) => {
+  animationProgress = progress;
+};
+
+const getNormalizedTrailBezierOffset = (val) => val * animationProgress;
+
 /**
  * @param {{ cx: number, cy: number, verRadius: number, horRadius: number }} from
  * @param {{ cx: number, cy: number, verRadius: number, horRadius: number }} to
@@ -83,10 +90,6 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
   const img = new Image();
 
   const drawPlane = () => {
-    if (!renderPlane) {
-      return;
-    }
-
     ctx.save();
     const planeTail = getPlaneTail();
     rotate(ctx, angle, planeTail.x, planeTail.y);
@@ -97,47 +100,41 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
   };
 
   const drawTrailEllipse = () => {
-    // ctx.save();
-    // ctx.fillStyle = TRAIL_COLOR;
-    // ctx.globalAlpha = opacity;
-    ctx.lineWidth = 0;
+    ctx.save();
+    ctx.fillStyle = TRAIL_COLOR;
+    ctx.globalAlpha = opacity;
     drawEllipse({ctx, cx: ellipseCX, cy: ellipseCY, horRadius: ellipseHorR, verRadius: ellipseVerR});
-    // ctx.fill();
-    // ctx.restore();
+    ctx.fill();
+    ctx.restore();
   };
 
   const drawTrail = () => {
-    if (!renderPlane) {
-      return;
-    }
-
     ctx.save();
-    drawTrailEllipse();
-    ctx.restore();
-    ctx.moveTo(planeStart.x, planeStart.y + 12);
+    ctx.beginPath();
+    ctx.moveTo(planeStart.x, planeStart.y);
     const planeTail = getPlaneTail();
     const cp1 = {
-      x: planeStart.x + 145,
-      y: planeStart.y + 27,
+      x: planeStart.x + getNormalizedTrailBezierOffset(145),
+      y: planeStart.y + getNormalizedTrailBezierOffset(27),
     };
     const cp2 = {
-      x: planeTail.x - 143,
-      y: planeTail.y + 59,
+      x: planeTail.x - getNormalizedTrailBezierOffset(143),
+      y: planeTail.y + getNormalizedTrailBezierOffset(59),
     };
     const cp3 = {
-      x: planeTail.x - 42,
-      y: planeTail.y + 71,
+      x: planeTail.x - getNormalizedTrailBezierOffset(42),
+      y: planeTail.y + getNormalizedTrailBezierOffset(71),
     };
     const cp4 = {
-      x: planeStart.x + 240,
-      y: planeStart.y + 325,
+      x: planeStart.x + getNormalizedTrailBezierOffset(240),
+      y: planeStart.y + getNormalizedTrailBezierOffset(325),
     };
     const cp5 = {
-      x: planeStart.x + 202,
+      x: planeStart.x + getNormalizedTrailBezierOffset(180),
       y: ellipseCY + ellipseVerR,
     };
     const cp6 = {
-      x: planeStart.x + 202,
+      x: planeStart.x + getNormalizedTrailBezierOffset(180),
       y: planeStart.y,
     };
     ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, planeTail.x, planeTail.y);
@@ -146,11 +143,17 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
     ctx.fillStyle = TRAIL_COLOR;
     ctx.globalAlpha = opacity;
     ctx.fill();
+    ctx.closePath();
     ctx.restore();
   };
 
   const draw = () => {
+    if (!renderPlane) {
+      return;
+    }
+
     drawPlane();
+    drawTrailEllipse();
     drawTrail();
   };
 
@@ -180,6 +183,7 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
       }
       animatePlane();
       animateTrail();
+      animateDuration(animationTick, ANIMATION_DURATION);
       animateDuration(opacityAnimationTick(0, 1), ANIMATION_DURATION * 0.3);
     }, DELAY);
   };

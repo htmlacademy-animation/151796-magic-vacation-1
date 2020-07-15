@@ -2,7 +2,7 @@ import walrus from './walrus';
 import airplane from './airplane';
 import {animateDuration} from '../helpers';
 
-const TOTAL_ANIMATION_DURATION = 3000;
+const TOTAL_ANIMATION_DURATION = 6000;
 
 const primaryVictoryResult = async (target) => {
   const imageWrapElement = document.querySelector(`#${target} .result__image`);
@@ -23,11 +23,11 @@ const primaryVictoryResult = async (target) => {
     const render = () => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       airplaneAnimation.draw();
-      // walrusAnimation.draw();
+      walrusAnimation.draw();
     };
 
     airplaneAnimation.animate();
-    // walrusAnimation.animate();
+    walrusAnimation.animate();
 
     animateDuration(render, TOTAL_ANIMATION_DURATION);
   } catch (e) {
