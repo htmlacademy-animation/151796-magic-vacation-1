@@ -2,34 +2,50 @@ import {animateDuration, defaultAnimationTick, runSerialAnimations, rotate} from
 
 const ANIMATION_DURATION = 500;
 const DELAY = 300;
-const TRAIL_COLOR = `rgb(172, 195, 255)`;
 
-const width = 80;
-const height = 77;
+const TRAIL_COLOR = `rgb(172, 195, 255)`;
+const TREE_COLOR = `rgb(92, 66, 137)`;
+
+const windowHW = window.innerWidth / 2;
+const windowHH = window.innerHeight / 2;
+
+const planeWidth = 80;
+const planeHeight = 77;
 
 const planeStart = {
-  x: (window.innerWidth / 2) - 50,
-  y: (window.innerHeight / 2) - 240,
+  x: windowHW - 50,
+  y: windowHH - 240,
 };
 
 const planeFinish = {
-  x: (window.innerWidth / 2) + 354,
-  y: (window.innerHeight / 2) - 133,
+  x: windowHW + 354,
+  y: windowHH - 133,
+};
+
+const staticTreeTopPoint = {
+  x: windowHW + 100,
+  y: windowHH - 100,
+};
+
+const dynamicTreeTopPoint = {
+  x: windowHW + 50,
+  y: 0,
 };
 
 const initialAngle = 90;
 
-let opacity = 0;
+let planeOpacity = 0;
 let translateY = 0;
 let translateX = 0;
 let angle = 0;
 let ellipseHeight = 0;
 let renderPlane = false;
 let animationProgress = 0;
+let treeOpacity = 0;
 
 const getPlaneTail = () => ({
-  x: translateX + width * 0.14,
-  y: translateY + height * 0.865,
+  x: translateX + planeWidth * 0.14,
+  y: translateY + planeHeight * 0.865,
 });
 
 /**
@@ -53,11 +69,19 @@ const rotateAnimationTick = (from, to) => (progress) => {
 };
 
 const opacityAnimationTick = (from, to) => (progress) => {
-  opacity = defaultAnimationTick(from, to, progress);
+  planeOpacity = defaultAnimationTick(from, to, progress);
 };
 
 const animationTick = (progress) => {
   animationProgress = progress;
+};
+
+const treeTranslateYAnimationTick = (from, to) => (progress) => {
+  dynamicTreeTopPoint.y = defaultAnimationTick(from, to, progress);
+};
+
+const treeOpacityAnimationTick = (from, to) => (progress) => {
+  treeOpacity = defaultAnimationTick(from, to, progress);
 };
 
 const getNormalizedTrailBezierOffset = (val) => val * animationProgress;
@@ -87,10 +111,35 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
     ctx.save();
     const planeTail = getPlaneTail();
     rotate(ctx, angle, planeTail.x, planeTail.y);
-    ctx.globalAlpha = opacity;
+    ctx.globalAlpha = planeOpacity;
     ctx.translate(translateX, translateY);
-    ctx.drawImage(img, 0, 0, width, height);
+    ctx.drawImage(img, 0, 0, planeWidth, planeHeight);
     ctx.restore();
+  };
+
+  const drawStaticTree = () => {
+    ctx.beginPath();
+    ctx.moveTo(staticTreeTopPoint.x, staticTreeTopPoint.y);
+    ctx.lineTo(staticTreeTopPoint.x + 40, staticTreeTopPoint.y + 200);
+    ctx.lineTo(staticTreeTopPoint.x - 40, staticTreeTopPoint.y + 200);
+    ctx.fill();
+    ctx.closePath();
+  };
+
+  const drawDynamicTree = () => {
+    ctx.beginPath();
+    ctx.moveTo(dynamicTreeTopPoint.x, dynamicTreeTopPoint.y);
+    ctx.lineTo(dynamicTreeTopPoint.x + 50, dynamicTreeTopPoint.y + 300);
+    ctx.lineTo(dynamicTreeTopPoint.x - 50, dynamicTreeTopPoint.y + 300);
+    ctx.globalAlpha = treeOpacity;
+    ctx.fill();
+    ctx.closePath();
+  };
+
+  const drawTrees = () => {
+    ctx.fillStyle = TREE_COLOR;
+    drawStaticTree();
+    drawDynamicTree();
   };
 
   const drawTrail = () => {
@@ -126,9 +175,11 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
     ctx.bezierCurveTo(cp3.x, cp3.y, cp4.x, cp4.y, planeStart.x, planeStart.y + ellipseHeight);
     ctx.bezierCurveTo(cp5.x, cp5.y, cp6.x, cp6.y, planeStart.x, planeStart.y);
     ctx.fillStyle = TRAIL_COLOR;
-    ctx.globalAlpha = opacity;
+    ctx.globalAlpha = planeOpacity;
     ctx.fill();
     ctx.closePath();
+    ctx.clip();
+    drawTrees();
     ctx.restore();
   };
 
@@ -150,6 +201,11 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
     runSerialAnimations(rotateAnimations);
   };
 
+  const animateTree = () => {
+    animateDuration(treeTranslateYAnimationTick(windowHH - 50, windowHH - 190), 300);
+    animateDuration(treeOpacityAnimationTick(0.5, 1), 300);
+  };
+
   const animate = () => {
     setTimeout(() => {
       if (!renderPlane) {
@@ -159,6 +215,10 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
       animateTrail();
       animateDuration(animationTick, ANIMATION_DURATION);
       animateDuration(opacityAnimationTick(0, 1), ANIMATION_DURATION * 0.3);
+
+      setTimeout(() => {
+        animateTree();
+      }, ANIMATION_DURATION * 0.6);
     }, DELAY);
   };
 
