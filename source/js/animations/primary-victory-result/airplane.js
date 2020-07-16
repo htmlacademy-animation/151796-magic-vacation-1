@@ -2,6 +2,7 @@ import {animateDuration, defaultAnimationTick, runSerialAnimations, rotate} from
 
 const ANIMATION_DURATION = 500;
 const DELAY = 300;
+const TREE_ANIMATION_DURATION = 300;
 
 const TRAIL_COLOR = `rgb(172, 195, 255)`;
 const TREE_COLOR = `rgb(92, 66, 137)`;
@@ -202,8 +203,8 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
   };
 
   const animateTree = () => {
-    animateDuration(treeTranslateYAnimationTick(windowHH - 50, windowHH - 190), 300);
-    animateDuration(treeOpacityAnimationTick(0.5, 1), 300);
+    animateDuration(treeTranslateYAnimationTick(windowHH - 50, windowHH - 190), TREE_ANIMATION_DURATION);
+    animateDuration(treeOpacityAnimationTick(0.5, 1), TREE_ANIMATION_DURATION);
   };
 
   const animate = () => {
