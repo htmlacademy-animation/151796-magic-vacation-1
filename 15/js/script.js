@@ -10461,7 +10461,7 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
 
   img.onerror = reject;
 
-  img.src = `/img/win-primary-images/airplane.png`;
+  img.src = `img/win-primary-images/airplane.png`;
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (airplane);
@@ -10650,7 +10650,7 @@ const snowflakes = (ctx) => new Promise((resolve, reject) => {
 
   img.onerror = reject;
 
-  img.src = `/img/win-primary-images/snowflake.png`;
+  img.src = `img/win-primary-images/snowflake.png`;
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (snowflakes);
@@ -10728,7 +10728,7 @@ const walrus = (ctx) => new Promise((resolve, reject) => {
 
   img.onerror = reject;
 
-  img.src = `/img/win-primary-images/walrus.png`;
+  img.src = `img/win-primary-images/walrus.png`;
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (walrus);
