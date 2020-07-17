@@ -102,7 +102,7 @@ const snowflakes = (ctx) => new Promise((resolve, reject) => {
 
   img.onerror = reject;
 
-  img.src = `/img/win-primary-images/snowflake.png`;
+  img.src = `img/win-primary-images/snowflake.png`;
 });
 
 export default snowflakes;

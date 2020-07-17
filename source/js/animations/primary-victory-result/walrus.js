@@ -57,7 +57,7 @@ const walrus = (ctx) => new Promise((resolve, reject) => {
 
   img.onerror = reject;
 
-  img.src = `/img/win-primary-images/walrus.png`;
+  img.src = `img/win-primary-images/walrus.png`;
 });
 
 export default walrus;

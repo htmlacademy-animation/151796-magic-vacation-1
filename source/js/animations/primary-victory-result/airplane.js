@@ -230,7 +230,7 @@ const airplane = (ctx) => new Promise((resolve, reject) => {
 
   img.onerror = reject;
 
-  img.src = `/img/win-primary-images/airplane.png`;
+  img.src = `img/win-primary-images/airplane.png`;
 });
 
 export default airplane;
