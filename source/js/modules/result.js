@@ -1,3 +1,5 @@
+import primaryVictoryResult from '../animations/primary-victory-result';
+
 const animateTitle = (screenId) => {
   const titleSvg = document.querySelector(`#${screenId} .result__svg-title`);
   if (titleSvg) {
@@ -49,6 +51,16 @@ const animateTitle = (screenId) => {
   titleSvg.classList.add(`result__svg-title--displayed`);
 };
 
+const previewAnimation = {
+  result: primaryVictoryResult,
+};
+
+const animatePreview = (target) => {
+  if (previewAnimation[target]) {
+    previewAnimation[target](target);
+  }
+};
+
 export default () => {
   let showResultEls = document.querySelectorAll(`.js-show-result`);
   let results = document.querySelectorAll(`.screen--result`);
@@ -65,6 +77,7 @@ export default () => {
         });
         targetEl[0].classList.add(`screen--show`);
         targetEl[0].classList.remove(`screen--hidden`);
+        animatePreview(target);
         animateTitle(target);
       });
     }
