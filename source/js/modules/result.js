@@ -1,4 +1,5 @@
 import primaryVictoryResult from '../animations/primary-victory-result';
+import defeatResult from '../animations/defeat-result';
 
 const animateTitle = (screenId) => {
   const titleSvg = document.querySelector(`#${screenId} .result__svg-title`);
@@ -53,6 +54,7 @@ const animateTitle = (screenId) => {
 
 const previewAnimation = {
   result: primaryVictoryResult,
+  result3: defeatResult,
 };
 
 const animatePreview = (target) => {

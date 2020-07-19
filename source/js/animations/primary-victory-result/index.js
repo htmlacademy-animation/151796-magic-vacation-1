@@ -8,17 +8,13 @@ const TOTAL_ANIMATION_DURATION = 8 * 1000;
 const primaryVictoryResult = async (target) => {
   const imageWrapElement = document.querySelector(`#${target} .result__image`);
 
-  let airplaneAnimation;
-  let walrusAnimation;
-  let snowflakesAnimation;
-
   try {
     const canvasDom = document.getElementById(`primary-victory-result`);
     const ctx = canvasDom.getContext(`2d`);
 
-    airplaneAnimation = await airplane(ctx);
-    walrusAnimation = await walrus(ctx);
-    snowflakesAnimation = await snowflakes(ctx);
+    const airplaneAnimation = await airplane(ctx);
+    const walrusAnimation = await walrus(ctx);
+    const snowflakesAnimation = await snowflakes(ctx);
 
     canvasDom.width = window.innerWidth;
     canvasDom.height = window.innerHeight;
