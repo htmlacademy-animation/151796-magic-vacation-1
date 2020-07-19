@@ -21,8 +21,8 @@ const itemsData = [
         y: halfWH - 100,
       },
       to: {
-        x: halfWW - 400,
-        y: halfWH - 200,
+        x: halfWW - 330,
+        y: halfWH - 170,
       }
     },
     rotation: {
@@ -41,8 +41,8 @@ const itemsData = [
         y: halfWH - 100,
       },
       to: {
-        x: halfWW + 450,
-        y: halfWH - 250,
+        x: halfWW + 375,
+        y: halfWH - 210,
       }
     },
     rotation: {
@@ -61,8 +61,8 @@ const itemsData = [
         y: halfWH + 100,
       },
       to: {
-        x: halfWW + 350,
-        y: halfWH + 200,
+        x: halfWW + 290,
+        y: halfWH + 170,
       }
     },
     rotation: {
@@ -81,8 +81,8 @@ const itemsData = [
         y: halfWH,
       },
       to: {
-        x: halfWW + 200,
-        y: halfWH - 30,
+        x: halfWW + 170,
+        y: halfWH - 25,
       }
     },
     rotation: {
@@ -101,8 +101,8 @@ const itemsData = [
         y: halfWH + 100,
       },
       to: {
-        x: halfWW - 600,
-        y: halfWH + 200,
+        x: halfWW - 500,
+        y: halfWH + 170,
       }
     },
     rotation: {

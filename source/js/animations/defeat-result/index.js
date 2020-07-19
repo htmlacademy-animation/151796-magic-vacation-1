@@ -11,7 +11,7 @@ const defeatResult = async (target) => {
     const canvasDom = document.getElementById(`defeat-result`);
     const ctx = canvasDom.getContext(`2d`);
 
-    const lockAnimation = lock(ctx);
+    const lockAnimation = await lock(ctx);
     const itemsAnimation = await items(ctx);
 
     canvasDom.width = window.innerWidth;
