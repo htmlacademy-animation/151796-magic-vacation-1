@@ -1,4 +1,4 @@
-import {animateDuration, defaultAnimationTick} from '../helpers';
+import {animateDuration, defaultAnimationTick, scale} from '../helpers';
 
 const LOCK_ANIMATION_DURATION = 100;
 
@@ -31,14 +31,10 @@ const lockOpacityAnimationTick = (from, to) => (progress) => {
 const lock = (ctx) => {
   const draw = () => {
     ctx.save();
+
+    scale(ctx, lockScale, lockScale);
+
     ctx.beginPath();
-
-    ctx.translate(
-        -((ww * lockScale - ww) / 2),
-        -((wh * lockScale - wh) / 2),
-    );
-    ctx.scale(lockScale, lockScale);
-
     const bottom = lockPosition.y + lockSize.height;
     const right = lockPosition.x + lockSize.width;
     const middleTop = {

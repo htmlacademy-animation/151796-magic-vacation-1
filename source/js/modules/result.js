@@ -5,7 +5,7 @@ const animateTitle = (screenId) => {
   const titleSvg = document.querySelector(`#${screenId} .result__svg-title`);
   if (titleSvg) {
     const type = titleSvg.getAttribute(`data-type`);
-    let letterDelay = 0;
+    let letterDelay = 200;
 
     const paths = titleSvg.querySelectorAll(`path`);
     paths.forEach((path) => {

@@ -1,5 +1,6 @@
 import {animateDuration} from '../helpers';
 import lock from './lock';
+import items from './items';
 
 const TOTAL_ANIMATION_DURATION = 8 * 1000;
 
@@ -11,6 +12,7 @@ const defeatResult = async (target) => {
     const ctx = canvasDom.getContext(`2d`);
 
     const lockAnimation = lock(ctx);
+    const itemsAnimation = await items(ctx);
 
     canvasDom.width = window.innerWidth;
     canvasDom.height = window.innerHeight;
@@ -18,9 +20,11 @@ const defeatResult = async (target) => {
     const render = () => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       lockAnimation.draw();
+      itemsAnimation.draw();
     };
 
     lockAnimation.animate();
+    itemsAnimation.animate();
 
     animateDuration(render, TOTAL_ANIMATION_DURATION);
   } catch (e) {

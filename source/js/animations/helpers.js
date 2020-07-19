@@ -19,6 +19,21 @@ export const skew = (ctx, x = 0, y = 0) => {
 
 /**
  * @param {CanvasRenderingContext2D} ctx
+ * @param {number} x
+ * @param {number} y
+ */
+export const scale = (ctx, x = 1, y = 1) => {
+  const ww = window.innerWidth;
+  const wh = window.innerHeight;
+  ctx.translate(
+      -((ww * x - ww) / 2),
+      -((wh * y - wh) / 2),
+  );
+  ctx.scale(x, y);
+};
+
+/**
+ * @param {CanvasRenderingContext2D} ctx
  * @param {number} angle
  * @param {number} x
  * @param {number} y
