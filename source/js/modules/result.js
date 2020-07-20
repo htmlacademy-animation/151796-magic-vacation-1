@@ -88,6 +88,13 @@ export default () => {
     if (playBtn) {
       playBtn.addEventListener(`click`, function () {
         [].slice.call(results).forEach(function (el) {
+          const titleSvg = el.querySelector(`.result__svg-title`);
+          if (titleSvg) {
+            const paths = titleSvg.querySelectorAll(`path`);
+            paths.forEach((path) => {
+              path.innerHTML = ``;
+            });
+          }
           el.classList.remove(`screen--show`);
           el.classList.add(`screen--hidden`);
         });

@@ -16,133 +16,133 @@ const wh = window.innerHeight;
 const halfWW = ww / 2;
 const halfWH = wh / 2;
 
-// Lock
-
-let lockOpacity = 1;
-const lockSize = {
-  width: 172,
-  height: 292,
-};
-const lockPosition = {
-  x: halfWW - lockSize.width / 2,
-  y: halfWH - lockSize.height / 2,
-};
-let lockScale = 0.8;
-
-const lockScaleAnimationTick = (from, to) => (progress) => {
-  lockScale = defaultAnimationTick(from, to, progress);
-};
-
-const lockOpacityAnimationTick = (from, to) => (progress) => {
-  lockOpacity = defaultAnimationTick(from, to, progress);
-};
-
-const getLockCoords = () => {
-  const top = lockPosition.y;
-  const left = lockPosition.x;
-  const bottom = lockPosition.y + lockSize.height;
-  const right = lockPosition.x + lockSize.width;
-
-  const rightMiddleBend = {
-    x: right - 30,
-    y: bottom - 146,
-  };
-  const leftMiddleBend = {
-    x: left + 30,
-    y: bottom - 146,
-  };
-
-  const middleTop = {
-    x: left + lockSize.width / 2,
-    y: top,
-  };
-
-  const cp1 = {
-    x: rightMiddleBend.x + 40,
-    y: rightMiddleBend.y - 26,
-  };
-  const cp2 = {
-    x: middleTop.x + 100,
-    y: middleTop.y + 5,
-  };
-  const cp3 = {
-    x: middleTop.x - 100,
-    y: middleTop.y + 5,
-  };
-  const cp4 = {
-    x: leftMiddleBend.x - 40,
-    y: leftMiddleBend.y - 26,
-  };
-
-  return {
-    top,
-    left,
-    bottom,
-    right,
-    rightMiddleBend,
-    leftMiddleBend,
-    middleTop,
-    cp1,
-    cp2,
-    cp3,
-    cp4,
-  };
-};
-
-// Crocodile
-
-let showCrocodile = false;
-const crocodileSize = {
-  width: 585,
-  height: 180,
-};
-const crocodilePosition = {
-  x: 0,
-  y: 0,
-};
-
-/**
- * @param {{x: number, y: number}} from
- * @param {{x: number, y: number}} to
- * @return {function(...[*]=)}
- */
-const crocodileTranslateAnimationTick = (from, to) => (progress) => {
-  crocodilePosition.x = defaultAnimationTick(from.x, to.x, progress);
-  crocodilePosition.y = defaultAnimationTick(from.y, to.y, progress);
-};
-
-// Drop
-
-const dropSize = {
-  width: 40,
-  height: 60,
-};
-let dropScale = 0;
-let dropOpacity = 1;
-let dropY = 0;
-
-const getDropPosition = () => ({
-  x: crocodilePosition.x + 240,
-  y: crocodilePosition.y + dropY + 60,
-});
-
-const dropScaleAnimationTick = (from, to) => (progress) => {
-  dropScale = defaultAnimationTick(from, to, progress);
-};
-
-const dropOpacityAnimationTick = (from, to) => (progress) => {
-  dropOpacity = defaultAnimationTick(from, to, progress);
-};
-
-const dropTranslateYAnimationTick = (from, to) => (progress) => {
-  dropY = defaultAnimationTick(from, to, progress);
-};
-
 /**
  * @param {CanvasRenderingContext2D} ctx
  * @return {Promise<{draw: function, animate: function}>}
  */
 const lock = (ctx) => new Promise((resolve, reject) => {
+  // Lock
+
+  let lockOpacity = 1;
+  const lockSize = {
+    width: 172,
+    height: 292,
+  };
+  const lockPosition = {
+    x: halfWW - lockSize.width / 2,
+    y: halfWH - lockSize.height / 2,
+  };
+  let lockScale = 0.8;
+
+  const lockScaleAnimationTick = (from, to) => (progress) => {
+    lockScale = defaultAnimationTick(from, to, progress);
+  };
+
+  const lockOpacityAnimationTick = (from, to) => (progress) => {
+    lockOpacity = defaultAnimationTick(from, to, progress);
+  };
+
+  const getLockCoords = () => {
+    const top = lockPosition.y;
+    const left = lockPosition.x;
+    const bottom = lockPosition.y + lockSize.height;
+    const right = lockPosition.x + lockSize.width;
+
+    const rightMiddleBend = {
+      x: right - 30,
+      y: bottom - 146,
+    };
+    const leftMiddleBend = {
+      x: left + 30,
+      y: bottom - 146,
+    };
+
+    const middleTop = {
+      x: left + lockSize.width / 2,
+      y: top,
+    };
+
+    const cp1 = {
+      x: rightMiddleBend.x + 40,
+      y: rightMiddleBend.y - 26,
+    };
+    const cp2 = {
+      x: middleTop.x + 100,
+      y: middleTop.y + 5,
+    };
+    const cp3 = {
+      x: middleTop.x - 100,
+      y: middleTop.y + 5,
+    };
+    const cp4 = {
+      x: leftMiddleBend.x - 40,
+      y: leftMiddleBend.y - 26,
+    };
+
+    return {
+      top,
+      left,
+      bottom,
+      right,
+      rightMiddleBend,
+      leftMiddleBend,
+      middleTop,
+      cp1,
+      cp2,
+      cp3,
+      cp4,
+    };
+  };
+
+  // Crocodile
+
+  let showCrocodile = false;
+  const crocodileSize = {
+    width: 585,
+    height: 180,
+  };
+  const crocodilePosition = {
+    x: 0,
+    y: 0,
+  };
+
+  /**
+   * @param {{x: number, y: number}} from
+   * @param {{x: number, y: number}} to
+   * @return {function(...[*]=)}
+   */
+  const crocodileTranslateAnimationTick = (from, to) => (progress) => {
+    crocodilePosition.x = defaultAnimationTick(from.x, to.x, progress);
+    crocodilePosition.y = defaultAnimationTick(from.y, to.y, progress);
+  };
+
+  // Drop
+
+  const dropSize = {
+    width: 40,
+    height: 60,
+  };
+  let dropScale = 0;
+  let dropOpacity = 1;
+  let dropY = 0;
+
+  const getDropPosition = () => ({
+    x: crocodilePosition.x + 240,
+    y: crocodilePosition.y + dropY + 60,
+  });
+
+  const dropScaleAnimationTick = (from, to) => (progress) => {
+    dropScale = defaultAnimationTick(from, to, progress);
+  };
+
+  const dropOpacityAnimationTick = (from, to) => (progress) => {
+    dropOpacity = defaultAnimationTick(from, to, progress);
+  };
+
+  const dropTranslateYAnimationTick = (from, to) => (progress) => {
+    dropY = defaultAnimationTick(from, to, progress);
+  };
+
   const crocodileImage = new Image();
 
   const drawDrop = () => {

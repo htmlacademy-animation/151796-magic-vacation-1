@@ -113,59 +113,59 @@ const itemsData = [
   },
 ];
 
-const itemsPositions = [
-  {x: 0, y: 0},
-  {x: 0, y: 0},
-  {x: 0, y: 0},
-  {x: 0, y: 0},
-  {x: 0, y: 0},
-];
-const itemsAngles = [
-  0,
-  0,
-  0,
-  0,
-  0,
-];
-
-let loadedImages = 0;
-let scaleSize = 0;
-
-/**
- * @param {{x: number, y: number}} from
- * @param {{x: number, y: number}} to
- * @param {number} index
- * @return {function(...[*]=)}
- */
-const positionAnimationTick = (from, to, index) => (progress) => {
-  itemsPositions[index].x = defaultAnimationTick(from.x, to.x, progress);
-  itemsPositions[index].y = defaultAnimationTick(from.y, to.y, progress);
-};
-
-const angleAnimationTick = (from, to, index) => (progress) => {
-  itemsAngles[index] = defaultAnimationTick(from, to, progress);
-};
-
-const scaleAnimationTick = (from, to) => (progress) => {
-  scaleSize = defaultAnimationTick(from, to, progress);
-};
-
-/**
- * @param {number} width
- * @param {number} height
- * @param {{x: number, y: number}} position
- * @return {{x: number, y: number}}
- */
-const getItemCenter = (width, height, position) => ({
-  x: position.x + width / 2,
-  y: position.y + height / 2,
-});
-
 /**
  * @param {CanvasRenderingContext2D} ctx
  * @return {Promise<{draw: function, animate: function}>}
  */
 const items = (ctx) => new Promise((resolve, reject) => {
+  const itemsPositions = [
+    {x: 0, y: 0},
+    {x: 0, y: 0},
+    {x: 0, y: 0},
+    {x: 0, y: 0},
+    {x: 0, y: 0},
+  ];
+  const itemsAngles = [
+    0,
+    0,
+    0,
+    0,
+    0,
+  ];
+
+  let loadedImages = 0;
+  let scaleSize = 0;
+
+  /**
+   * @param {{x: number, y: number}} from
+   * @param {{x: number, y: number}} to
+   * @param {number} index
+   * @return {function(...[*]=)}
+   */
+  const positionAnimationTick = (from, to, index) => (progress) => {
+    itemsPositions[index].x = defaultAnimationTick(from.x, to.x, progress);
+    itemsPositions[index].y = defaultAnimationTick(from.y, to.y, progress);
+  };
+
+  const angleAnimationTick = (from, to, index) => (progress) => {
+    itemsAngles[index] = defaultAnimationTick(from, to, progress);
+  };
+
+  const scaleAnimationTick = (from, to) => (progress) => {
+    scaleSize = defaultAnimationTick(from, to, progress);
+  };
+
+  /**
+   * @param {number} width
+   * @param {number} height
+   * @param {{x: number, y: number}} position
+   * @return {{x: number, y: number}}
+   */
+  const getItemCenter = (width, height, position) => ({
+    x: position.x + width / 2,
+    y: position.y + height / 2,
+  });
+
   let images = [];
 
   const draw = () => {
