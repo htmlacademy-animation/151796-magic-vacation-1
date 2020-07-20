@@ -3,7 +3,7 @@ import bezierEasing from '../bezierEasing';
 
 const ITEMS_ROOT_PATH = `img/lose-images/`;
 
-const APPEARING_ANIMATION_DURATION = 200;
+const APPEARING_ANIMATION_DURATION = 400;
 const APPEARING_ANIMATION_DELAY = 50;
 const FALLING_ANIMATION_DURATION = 500;
 
@@ -26,10 +26,10 @@ const itemsData = [
       }
     },
     rotation: {
-      from: 50,
+      from: 100,
       to: 0,
     },
-    fallDelay: 530,
+    fallDelay: 130,
   },
   {
     path: `leaf.png`,
@@ -46,10 +46,10 @@ const itemsData = [
       }
     },
     rotation: {
-      from: -30,
+      from: -80,
       to: 0,
     },
-    fallDelay: 400,
+    fallDelay: 0,
   },
   {
     path: `saturn.png`,
@@ -66,10 +66,10 @@ const itemsData = [
       }
     },
     rotation: {
-      from: 60,
+      from: 120,
       to: 0,
     },
-    fallDelay: 500,
+    fallDelay: 100,
   },
   {
     path: `snowflake.png`,
@@ -86,10 +86,10 @@ const itemsData = [
       }
     },
     rotation: {
-      from: -10,
+      from: -30,
       to: 0,
     },
-    fallDelay: 550,
+    fallDelay: 150,
   },
   {
     path: `watermelon.png`,
@@ -106,10 +106,10 @@ const itemsData = [
       }
     },
     rotation: {
-      from: 20,
+      from: 60,
       to: 0,
     },
-    fallDelay: 470,
+    fallDelay: 70,
   },
 ];
 
@@ -190,8 +190,16 @@ const items = (ctx) => new Promise((resolve, reject) => {
   const animate = () => {
     setTimeout(() => {
       itemsData.forEach(({position, rotation, fallDelay}, index) => {
-        animateDuration(positionAnimationTick(position.from, position.to, index), APPEARING_ANIMATION_DURATION);
-        animateDuration(angleAnimationTick(rotation.from, rotation.to, index), APPEARING_ANIMATION_DURATION);
+        animateEasing(
+            positionAnimationTick(position.from, position.to, index),
+            APPEARING_ANIMATION_DURATION,
+            bezierEasing(0.16, 1, 0.3, 1),
+        );
+        animateDuration(
+            angleAnimationTick(rotation.from, rotation.to, index),
+            APPEARING_ANIMATION_DURATION,
+            bezierEasing(0.7, 0, 0.84, 0),
+        );
         setTimeout(() => {
           animateEasing(
               positionAnimationTick(position.to, {x: position.to.x, y: window.innerHeight * 1.2}, index),

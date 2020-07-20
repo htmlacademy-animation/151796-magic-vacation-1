@@ -19,15 +19,17 @@ export const skew = (ctx, x = 0, y = 0) => {
 
 /**
  * @param {CanvasRenderingContext2D} ctx
- * @param {number} x
- * @param {number} y
+ * @param {number} [x=1]
+ * @param {number} [y=1]
+ * @param {number} [xShift=0]
+ * @param {number} [yShift=0]
  */
-export const scale = (ctx, x = 1, y = 1) => {
+export const scale = (ctx, x = 1, y = 1, xShift = 0, yShift = 0) => {
   const ww = window.innerWidth;
   const wh = window.innerHeight;
   ctx.translate(
-      -((ww * x - ww) / 2),
-      -((wh * y - wh) / 2),
+      -((ww * x - ww) / 2) + xShift,
+      -((wh * y - wh) / 2) + yShift,
   );
   ctx.scale(x, y);
 };

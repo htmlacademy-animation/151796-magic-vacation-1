@@ -1,9 +1,15 @@
-import {animateDuration, defaultAnimationTick, scale} from '../helpers';
+import {animateDuration, defaultAnimationTick, scale, runSerialAnimations} from '../helpers';
 
 const LOCK_ANIMATION_DURATION = 100;
 
 const CROCODILE_ANIMATION_DURATION = 800;
 const CROCODILE_ANIMATION_DELAY = 300;
+
+const DROP_INTERVAL = 1500;
+const DROPS_MAX_COUNT = 2;
+const DROP_SCALING_DURATION = 700;
+const DROP_TRANSLATING_DURATION = 400;
+const DROP_DISAPPEARING_DURATION = 200;
 
 const ww = window.innerWidth;
 const wh = window.innerHeight;
@@ -105,6 +111,33 @@ const crocodileTranslateAnimationTick = (from, to) => (progress) => {
   crocodilePosition.y = defaultAnimationTick(from.y, to.y, progress);
 };
 
+// Drop
+
+const dropSize = {
+  width: 40,
+  height: 60,
+};
+let dropScale = 0;
+let dropOpacity = 1;
+let dropY = 0;
+
+const getDropPosition = () => ({
+  x: crocodilePosition.x + 240,
+  y: crocodilePosition.y + dropY + 60,
+});
+
+const dropScaleAnimationTick = (from, to) => (progress) => {
+  dropScale = defaultAnimationTick(from, to, progress);
+};
+
+const dropOpacityAnimationTick = (from, to) => (progress) => {
+  dropOpacity = defaultAnimationTick(from, to, progress);
+};
+
+const dropTranslateYAnimationTick = (from, to) => (progress) => {
+  dropY = defaultAnimationTick(from, to, progress);
+};
+
 /**
  * @param {CanvasRenderingContext2D} ctx
  * @return {Promise<{draw: function, animate: function}>}
@@ -112,11 +145,64 @@ const crocodileTranslateAnimationTick = (from, to) => (progress) => {
 const lock = (ctx) => new Promise((resolve, reject) => {
   const crocodileImage = new Image();
 
+  const drawDrop = () => {
+    ctx.save();
+
+    scale(
+        ctx,
+        dropScale,
+        dropScale,
+        dropSize.width * dropScale - dropSize.width,
+        dropSize.height * (1 - dropScale) * 0.8,
+    );
+
+    const dropPosition = getDropPosition();
+    const leftBend = {
+      x: dropPosition.x - 15,
+      y: dropPosition.y + 30,
+    };
+    const rightBend = {
+      x: dropPosition.x + 15,
+      y: dropPosition.y + 30,
+    };
+    const bottom = dropPosition.y + dropSize.height;
+    const cp1 = {
+      x: leftBend.x - 10,
+      y: leftBend.y + 12,
+    };
+    const cp2 = {
+      x: dropPosition.x - 15,
+      y: bottom,
+    };
+    const cp3 = {
+      x: dropPosition.x + 15,
+      y: bottom,
+    };
+    const cp4 = {
+      x: rightBend.x + 10,
+      y: rightBend.y + 12,
+    };
+
+    ctx.beginPath();
+    ctx.moveTo(dropPosition.x, dropPosition.y);
+    ctx.lineTo(leftBend.x, leftBend.y);
+    ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, dropPosition.x, bottom);
+    ctx.bezierCurveTo(cp3.x, cp3.y, cp4.x, cp4.y, rightBend.x, rightBend.y);
+    ctx.closePath();
+
+    ctx.fillStyle = `rgb(180, 195, 255)`;
+    ctx.globalAlpha = dropOpacity;
+    ctx.fill();
+
+    ctx.restore();
+  };
+
   const drawCrocodile = () => {
     if (!showCrocodile) {
       return;
     }
     ctx.drawImage(crocodileImage, crocodilePosition.x, crocodilePosition.y, crocodileSize.width, crocodileSize.height);
+    drawDrop();
   };
 
   const drawClippedLockPart = () => {
@@ -169,7 +255,32 @@ const lock = (ctx) => new Promise((resolve, reject) => {
     animateDuration(lockOpacityAnimationTick(0, 1), LOCK_ANIMATION_DURATION);
   };
 
-  const animtateCrocodile = () => {
+  const animateDrop = () => {
+    setTimeout(() => {
+      let dropsCount = 0;
+      let interval;
+
+      const animate = () => {
+        dropOpacity = 1;
+        dropY = 0;
+        dropScale = 0;
+        runSerialAnimations([
+          () => animateDuration(dropScaleAnimationTick(0, 1), DROP_SCALING_DURATION),
+          () => animateDuration(dropTranslateYAnimationTick(0, 50), DROP_TRANSLATING_DURATION),
+          () => animateDuration(dropOpacityAnimationTick(1, 0), DROP_DISAPPEARING_DURATION),
+        ]);
+
+        dropsCount++;
+        if (dropsCount >= DROPS_MAX_COUNT) {
+          clearInterval(interval);
+        }
+      };
+      interval = setInterval(animate, DROP_INTERVAL);
+      animate();
+    }, CROCODILE_ANIMATION_DURATION);
+  };
+
+  const animateCrocodile = () => {
     setTimeout(() => {
       showCrocodile = true;
       animateDuration(crocodileTranslateAnimationTick({
@@ -179,12 +290,13 @@ const lock = (ctx) => new Promise((resolve, reject) => {
         x: halfWW - 280,
         y: halfWH - 10,
       }), CROCODILE_ANIMATION_DURATION);
+      animateDrop();
     }, CROCODILE_ANIMATION_DELAY);
   };
 
   const animate = () => {
     animateLock();
-    animtateCrocodile();
+    animateCrocodile();
   };
 
   crocodileImage.onload = () => {
