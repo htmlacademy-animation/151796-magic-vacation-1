@@ -1,10 +1,11 @@
 import primaryVictoryResult from '../animations/primary-victory-result';
+import defeatResult from '../animations/defeat-result';
 
 const animateTitle = (screenId) => {
   const titleSvg = document.querySelector(`#${screenId} .result__svg-title`);
   if (titleSvg) {
     const type = titleSvg.getAttribute(`data-type`);
-    let letterDelay = 0;
+    let letterDelay = 200;
 
     const paths = titleSvg.querySelectorAll(`path`);
     paths.forEach((path) => {
@@ -53,6 +54,7 @@ const animateTitle = (screenId) => {
 
 const previewAnimation = {
   result: primaryVictoryResult,
+  result3: defeatResult,
 };
 
 const animatePreview = (target) => {
@@ -86,6 +88,13 @@ export default () => {
     if (playBtn) {
       playBtn.addEventListener(`click`, function () {
         [].slice.call(results).forEach(function (el) {
+          const titleSvg = el.querySelector(`.result__svg-title`);
+          if (titleSvg) {
+            const paths = titleSvg.querySelectorAll(`path`);
+            paths.forEach((path) => {
+              path.innerHTML = ``;
+            });
+          }
           el.classList.remove(`screen--show`);
           el.classList.add(`screen--hidden`);
         });
