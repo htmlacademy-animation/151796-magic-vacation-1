@@ -41,22 +41,9 @@
 }
 
 .screen--intro {
-  background-image: url("../img/scene.png");
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center;
-
-  @include retina {
-    background-image: url("../img/scene@2x.png");
-  }
-
-  @media (orientation: portrait) {
-    background-image: url("../img/scene-mob.png");
-
-    @include retina {
-      background-image: url("../img/scene-mob@2x.png");
-    }
-  }
 }
 
 .screen__wrapper {
@@ -67,7 +54,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
 }
 
 .screen__disclaimer {
@@ -87,7 +74,7 @@
   right: 0;
   color: $c-dark;
   background-color: $c-light;
-  z-index: 1;
+  z-index: 10;
 
   @media (max-width: $tablet) and (orientation: portrait) {
     width: 3.5rem;
@@ -402,4 +389,8 @@
 
 .screen--rules {
   background-color: $c-dark;
+}
+
+.screen__scene {
+  position: absolute;
 }

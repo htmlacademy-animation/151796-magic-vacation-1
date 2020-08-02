@@ -11,6 +11,7 @@ import app from './modules/app.js';
 import intro from './modules/intro.js';
 import FullPageScroll from './modules/full-page-scroll';
 import prizes from './modules/prizes';
+import scenes from './scenes';
 
 // init modules
 app();
@@ -24,6 +25,7 @@ form();
 social();
 intro();
 prizes();
+scenes();
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
