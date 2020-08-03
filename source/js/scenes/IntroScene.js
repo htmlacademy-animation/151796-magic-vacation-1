@@ -3,23 +3,7 @@ import Scene from './Scene';
 
 class IntroScene extends Scene {
   constructor() {
-    super();
-
-    this.canvas = document.querySelector(`#intro-scene`);
-
-    this.scene = new THREE.Scene();
-
-    this.camera = new THREE.PerspectiveCamera(
-        45,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000,
-    );
-    this.camera.position.z = 1000;
-
-    this.renderer = new THREE.WebGLRenderer({canvas: this.canvas});
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setClearColor(`rgb(61, 48, 91)`);
+    super(`#intro-scene`);
   }
 
   init() {

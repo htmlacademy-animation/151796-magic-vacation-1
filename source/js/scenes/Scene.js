@@ -1,23 +1,25 @@
+import * as THREE from 'three';
+
 class Scene {
-  constructor() {
+  constructor(canvasSelector) {
     this.ww = window.innerWidth;
     this.wh = window.innerHeight;
     this.animationId = null;
+    this.canvas = document.querySelector(canvasSelector);
 
-    /**
-     * @type {THREE.WebGLRenderer}
-     */
-    this.renderer = null;
+    this.scene = new THREE.Scene();
 
-    /**
-     * @type {THREE.Scene}
-     */
-    this.scene = null;
+    this.camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+    );
+    this.camera.position.z = 1000;
 
-    /**
-     * @type {THREE.PerspectiveCamera}
-     */
-    this.camera = null;
+    this.renderer = new THREE.WebGLRenderer({canvas: this.canvas});
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setClearColor(`rgb(61, 48, 91)`);
 
     this.hasResized = this.hasResized.bind(this);
     this.stop = this.stop.bind(this);
