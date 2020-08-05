@@ -63021,10 +63021,10 @@ class HistoryScene extends _Scene__WEBPACK_IMPORTED_MODULE_1__["default"] {
     super(`#history-scene`);
 
     this.scenes = [
-      `/img/scenes/scene-1.png`,
-      `/img/scenes/scene-2.png`,
-      `/img/scenes/scene-3.png`,
-      `/img/scenes/scene-4.png`,
+      `img/scenes/scene-1.png`,
+      `img/scenes/scene-2.png`,
+      `img/scenes/scene-3.png`,
+      `img/scenes/scene-4.png`,
     ];
     this.planeIndex = 0;
 
@@ -63100,7 +63100,7 @@ class IntroScene extends _Scene__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   init() {
     const loadManager = new three__WEBPACK_IMPORTED_MODULE_0__["LoadingManager"]();
-    const texture = new three__WEBPACK_IMPORTED_MODULE_0__["TextureLoader"](loadManager).load(`/img/scenes/scene-0.png`);
+    const texture = new three__WEBPACK_IMPORTED_MODULE_0__["TextureLoader"](loadManager).load(`img/scenes/scene-0.png`);
     const planeMaterial = new three__WEBPACK_IMPORTED_MODULE_0__["MeshBasicMaterial"]({map: texture});
     const planeGeometry = new three__WEBPACK_IMPORTED_MODULE_0__["PlaneGeometry"](window.innerWidth, window.innerHeight);
     loadManager.onLoad = () => {
