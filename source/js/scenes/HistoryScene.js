@@ -6,10 +6,10 @@ class HistoryScene extends Scene {
     super(`#history-scene`);
 
     this.scenes = [
-      `/img/scenes/scene-1.png`,
-      `/img/scenes/scene-2.png`,
-      `/img/scenes/scene-3.png`,
-      `/img/scenes/scene-4.png`,
+      `img/scenes/scene-1.png`,
+      `img/scenes/scene-2.png`,
+      `img/scenes/scene-3.png`,
+      `img/scenes/scene-4.png`,
     ];
     this.planeIndex = 0;
 

@@ -8,7 +8,7 @@ class IntroScene extends Scene {
 
   init() {
     const loadManager = new THREE.LoadingManager();
-    const texture = new THREE.TextureLoader(loadManager).load(`/img/scenes/scene-0.png`);
+    const texture = new THREE.TextureLoader(loadManager).load(`img/scenes/scene-0.png`);
     const planeMaterial = new THREE.MeshBasicMaterial({map: texture});
     const planeGeometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
     loadManager.onLoad = () => {
