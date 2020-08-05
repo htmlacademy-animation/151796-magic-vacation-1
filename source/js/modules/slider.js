@@ -1,4 +1,6 @@
-import Swiper from "swiper";
+import Swiper from 'swiper';
+
+import HistoryScene from '../scenes/HistoryScene';
 
 const clearActiveElement = (slider) => () => {
   if (slider && slider.slides) {
@@ -12,9 +14,8 @@ const clearActiveElement = (slider) => () => {
 };
 
 export default () => {
+  const scene = new HistoryScene();
   let storySlider;
-  let sliderContainer = document.getElementById(`story`);
-  sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
 
   const setSlider = function () {
     let textFadeIn;
@@ -38,13 +39,13 @@ export default () => {
         on: {
           slideChange: () => {
             if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
-              sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
+              scene.moveCameraTo(0);
             } else if (storySlider.activeIndex === 2 || storySlider.activeIndex === 3) {
-              sliderContainer.style.backgroundImage = `url("img/slide2.jpg"), linear-gradient(180deg, rgba(45, 54, 179, 0) 0%, #2A34B0 16.85%)`;
+              scene.moveCameraTo(1);
             } else if (storySlider.activeIndex === 4 || storySlider.activeIndex === 5) {
-              sliderContainer.style.backgroundImage = `url("img/slide3.jpg"), linear-gradient(180deg, rgba(92, 138, 198, 0) 0%, #5183C4 16.85%)`;
+              scene.moveCameraTo(2);
             } else if (storySlider.activeIndex === 6 || storySlider.activeIndex === 7) {
-              sliderContainer.style.backgroundImage = `url("img/slide4.jpg"), linear-gradient(180deg, rgba(45, 39, 63, 0) 0%, #2F2A42 16.85%)`;
+              scene.moveCameraTo(3);
             }
 
             textFadeIn(storySlider)();
@@ -86,13 +87,13 @@ export default () => {
         on: {
           slideChange: () => {
             if (storySlider.activeIndex === 0) {
-              sliderContainer.style.backgroundImage = `url("img/slide1.jpg")`;
+              scene.moveCameraTo(0);
             } else if (storySlider.activeIndex === 2) {
-              sliderContainer.style.backgroundImage = `url("img/slide2.jpg")`;
+              scene.moveCameraTo(1);
             } else if (storySlider.activeIndex === 4) {
-              sliderContainer.style.backgroundImage = `url("img/slide3.jpg")`;
+              scene.moveCameraTo(2);
             } else if (storySlider.activeIndex === 6) {
-              sliderContainer.style.backgroundImage = `url("img/slide4.jpg")`;
+              scene.moveCameraTo(3);
             }
 
             textFadeIn(storySlider)();
@@ -121,10 +122,13 @@ export default () => {
 
   document.body.addEventListener(`screenVisuallyChanged`, (e) => {
     if (e && e.detail && e.detail.screenName === `story`) {
+      scene.init();
       if (storySlider) {
         storySlider.destroy();
       }
       setSlider();
+    } else {
+      scene.stop();
     }
   });
 };
