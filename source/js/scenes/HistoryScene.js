@@ -13,6 +13,36 @@ class HistoryScene extends Scene {
     ];
     this.planeIndex = 0;
 
+    this.vertexShader = `
+uniform mat4 projectionMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
+
+varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+}
+`;
+
+    this.fragmentShader = `
+precision mediump float;
+
+uniform sampler2D map;
+
+varying vec2 vUv;
+
+void main() {
+  vec4 texel = texture2D(map, vUv);
+  gl_FragColor = texel;
+}
+`;
+
     this.moveCameraTo = this.moveCameraTo.bind(this);
     this.initPlanes = this.initPlanes.bind(this);
   }
@@ -26,7 +56,15 @@ class HistoryScene extends Scene {
     const loadManager = new THREE.LoadingManager();
     const loader = new THREE.TextureLoader(loadManager);
     const planeGeometry = new THREE.PlaneGeometry(this.ww, this.wh);
-    const planeMaterials = this.scenes.map((path) => new THREE.MeshBasicMaterial({map: loader.load(path)}));
+    const planeMaterials = this.scenes.map((path) => new THREE.RawShaderMaterial({
+      vertexShader: this.vertexShader,
+      fragmentShader: this.fragmentShader,
+      uniforms: {
+        map: {
+          value: loader.load(path),
+        },
+      },
+    }));
 
     loadManager.onLoad = () => {
       planeMaterials.forEach((material, index) => {
